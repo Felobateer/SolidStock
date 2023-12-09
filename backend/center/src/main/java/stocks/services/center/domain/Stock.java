@@ -47,7 +47,7 @@ public class Stock implements Serializable {
         this.high = apiNum.get("h").asDouble();
         this.low = apiNum.get("l").asDouble();
         this.timeStamp = apiNum.get("t").asLong();
-        
+
 
     }
 }
