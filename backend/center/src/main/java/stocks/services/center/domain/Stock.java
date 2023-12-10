@@ -3,6 +3,8 @@ package stocks.services.center.domain;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Stock implements Serializable {
@@ -15,20 +17,11 @@ public class Stock implements Serializable {
     private String imgUrl;
     private String industry;
     private float price;
-    private float prevPrice;
-    /* HAP stands for hours ago price */
-    private float HAP;
-    private float twoHAP;
-    private float threeHAP;
-    private float yesterdayPrice;
-    /*DAP stands for days ago price*/
-    private float twoDAP;
-    private float threeDAP;
-    private float fourDAP;
-    private float fiveDAP;
+    private List<Double> prevPrices = new ArrayList<>();
     private float sell;
     private float buy;
-    private double change;
+    private double buyChange;
+    private double sellChange;
     private double high;
     private double low;
     private Long timeStamp;
@@ -74,19 +67,19 @@ public class Stock implements Serializable {
         this.symbol = symbol;
     }
 
-    public String getImgUrl() {
+    public String getWeburl() {
         return imgUrl;
     }
 
-    public void setImgUrl(String url) {
+    public void setWeburl(String url) {
         this.imgUrl = url;
     }
 
-    public String getIndustry() {
+    public String getFinnhubIndustry() {
         return industry;
     }
 
-    public void setIndustry(String type) {
+    public void setFinnhubIndustry(String type) {
         this.industry = type;
     }
 
@@ -98,79 +91,21 @@ public class Stock implements Serializable {
         this.price = price;
     }
 
-    public float getPrevPrice() {
-        return prevPrice;
+    public double getBuyChange() {
+        return buyChange;
     }
 
-    public void setPrevPrice(float prevPrice) {
-        this.prevPrice = prevPrice;
+    public void setBuyChange(double buyChange) {
+        this.buyChange = buyChange;
     }
 
-    public float getHAP() {
-        return HAP;
+    public double getSellChange() {return sellChange;}
+
+    public void setSellChange(double sellChange) {
+        this.sellChange = sellChange;
     }
 
-    public void setHAP(float hap) {
-        this.HAP = hap;
-    }
-
-    public float getTwoHAP() {
-        return twoHAP;
-    }
-
-    public void setTwoHAP(float hap) {
-        this.twoHAP = hap;
-    }
-
-    public float getThreeHAP() {
-        return threeHAP;
-    }
-
-    public void setThreeHAP(float hap) {
-        this.threeHAP = hap;
-    }
-
-    public float getYesterdayPrice() {
-        return yesterdayPrice;
-    }
-
-    public void setYesterdayPrice(float yPrice){
-        this.yesterdayPrice = yPrice;
-    }
-
-    public float getTwoDAP() {
-        return twoDAP;
-    }
-
-    public void setTwoDAP(float dap) {
-        this.twoDAP = dap;
-    }
-
-    public float getThreeDAP() {
-        return threeDAP;
-    }
-    public void setThreeDAP(float dap) {
-        this.threeDAP = dap;
-    }
-    public float getFourDAP() {
-        return fourDAP;
-    }
-
-    public void setFourDAP(float dap) {
-        this.fourDAP = dap;
-    }
-
-    public float getFiveDAP() {
-        return fiveDAP;
-    }
-
-    public void setFiveDAP(float dap) {
-        this.fiveDAP = dap;
-    }
-
-    public float getSell() {
-        return sell;
-    }
+    public float getSell() {return sell;}
 
     public void setSell(float sell) {
         this.sell = sell;
@@ -184,14 +119,17 @@ public class Stock implements Serializable {
         this.buy = buy;
     }
 
-    public double getChange() {
-        return change;
+    public List<Double> getPrevPrices() {
+        return prevPrices;
     }
 
-    public void setChange(double change) {
-        this.change = change;
+    public void setPrevPrices(List<Double> prevPrices) {
+        this.prevPrices = prevPrices;
     }
 
+    public void addPrevPrices(double prevPrice) {
+        this.prevPrices.add(prevPrice);
+    }
     public double getHigh() {
         return high;
     }
