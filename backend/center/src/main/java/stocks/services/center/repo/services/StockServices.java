@@ -1,16 +1,19 @@
 package stocks.services.center.repo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
+import stocks.services.center.domain.Stock;
 import stocks.services.center.repo.StockRepo;
 
-import java.lang.reflect.Array;
+
+
 
 @Service
 public class StockServices {
     private final StockRepo stockRepo;
+    private final WebClient webClient;
     private final String apiInfoTemplate = "https://finnhub.io/api/v1/stock/profile2?symbol=%s&token=%s";
     private final String apiPriceTemplate = "https://finnhub.io/api/v1/quote?symbol=%s&token=%s";
     private final String apiKey = "cir4dhpr01qjff7d13ngcir4dhpr01qjff7d13o0";
@@ -29,26 +32,56 @@ public class StockServices {
     }
 
     private void fetchData() {
-        RestTemplate restTemplate = new RestTemplate();
         String apiKey = this.apiKey;
 
+
         for(String stock: this.apiStocks) {
-            String apiInfoUrl = String.format(apiInfoTemplate, stock, apiKey);
-            String apiPriceUrl = String.format(apiPriceTemplate, stock, apiKey);
-
-            StockInfoResponse infoResponse = restTemplate.getForObject(apiInfoUrl, StockInfoResponse.class);
-            if (infoResponse != null) {
-                Stock stockEntity = new Stock();
-                stockEntity.setName(infoResponse.getName());
-                stockEntity.setSymbol(infoResponse.getSymbol());
-                stockEntity.setIndustry(infoResponse.getIndustry());
-
-                // Fetch stock price
-                StockPriceResponse priceResponse = restTemplate.getForObject(apiPriceUrl, StockPriceResponse.class);
-                if (priceResponse != null) {
-                    stockEntity.setPrice(priceResponse.getC());
-                    stockEntity.setPrevPrice(priceResponse.getPc());
-                }
+            fetchStockInfo(stock, apiKey);
+            fetchStockPrice(stock, apiKey);
         }
+    }
+
+    private void fetchStockInfo(String symbol, String apiKey) {
+        String apiInfoUrl = String.format(apiInfoTemplate, symbol, apiKey);
+
+        Mono<StockInfoResponse> responseMono = webClient.get().uri(apiInfoUrl).retrieve().bodyToMono(StockInfoResponse.class);
+
+        responseMono.subscribe(
+                infoResponse -> {
+                    Stock stockEntity = new Stock();
+                    stockEntity.setName(infoResponse.getName());
+                    stockEntity.setSymbol(infoResponse.getSymbol());
+                    stockEntity.setIndustry(infoResponse.getIndustry());
+
+                    // Save stock entity to the repository
+                    stockRepo.save(stockEntity);
+                },
+                error -> {
+                    // Handle error if needed
+                    System.err.println("Error fetching stock info: " + error.getMessage());
+                }
+        );
+    }
+
+    private void fetchStockPrice(String symbol, String apiKey) {
+        String apiPriceUrl = String.format(apiPriceTemplate, symbol, apiKey);
+
+        Mono<StockPriceResponse> responseMono = webClient.get().uri(apiPriceUrl).retrieve().bodyToMono(StockPriceResponse.class);
+
+        responseMono.subscribe(
+                priceResponse -> {
+                    // Update existing stock entity or save new entity with price information
+                    Stock existingStock = stockRepo.findBySymbol(symbol);
+                    if (existingStock != null) {
+                        existingStock.setPrice(priceResponse.getC());
+                        existingStock.setPrevPrice(priceResponse.getPc());
+                        stockRepo.save(existingStock);
+                    }
+                },
+                error -> {
+                    // Handle error if needed
+                    System.err.println("Error fetching stock price: " + error.getMessage());
+                }
+        );
     }
 }
