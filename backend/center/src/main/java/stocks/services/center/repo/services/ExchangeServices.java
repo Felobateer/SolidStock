@@ -34,5 +34,5 @@ public class ExchangeServices {
         return tenStocks;
     }
 
-    
+
 }
