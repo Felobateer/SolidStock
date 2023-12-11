@@ -33,13 +33,18 @@ public class StockServices {
         this.webClient = builder.baseUrl("https://finnhub.io").build();
     }
 
+
     public void fetchData() {
         String apiKey = this.apiKey;
 
 
         for(String stock: this.apiStocks) {
-            fetchStockInfo(stock, apiKey);
-            fetchStockPrice(stock, apiKey);
+            try {
+                fetchStockInfo(stock, apiKey);
+                fetchStockPrice(stock, apiKey);
+            } catch (Exception e) {
+                System.err.println("Error updating stock data for " +  stock + ": " + e.getMessage());
+            }
         }
     }
 

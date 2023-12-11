@@ -3,6 +3,7 @@ package stocks.services.center.domain;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -74,3 +75,5 @@ public class Investors implements Serializable {
         this.stockExchanges.add(stockExchange);
     }
 }
+
+
