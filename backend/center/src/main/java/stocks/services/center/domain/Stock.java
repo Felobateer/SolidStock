@@ -11,7 +11,7 @@ public class Stock implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Long id;
+    private long id;
     private String symbol;
     private String name;
     private String imgUrl;
@@ -24,7 +24,7 @@ public class Stock implements Serializable {
     private double sellChange;
     private double high;
     private double low;
-    private Long timeStamp;
+    private long timeStamp;
 
 //    private void Stock(JsonNode apiData, JsonNode apiNum) {
 //        this.symbol = apiData.get("ticker").asText();
@@ -43,11 +43,11 @@ public class Stock implements Serializable {
 
 
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

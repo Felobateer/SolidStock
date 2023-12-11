@@ -42,7 +42,7 @@ public class UserServices {
         return null;
     }
 
-    public void editUserData(Long id, String field, String edit) {
+    public void editUserData(long id, String field, String edit) {
         Optional<Investors> userOptional = investorRepo.findById(id);
         if(userOptional.isPresent()) {
             Investors user = userOptional.get();
@@ -69,7 +69,7 @@ public class UserServices {
         }
     }
 
-    public void addBalance(Long id, BigDecimal amount) {
+    public void addBalance(long id, BigDecimal amount) {
         Optional<Investors> userOptional = investorRepo.findById(id);
         if(userOptional.isPresent()) {
             Investors user = userOptional.get();
@@ -82,7 +82,7 @@ public class UserServices {
         }
     }
 
-    public void deleteAccount(Long id) {
+    public void deleteAccount(long id) {
         Optional<Investors> userOptional = investorRepo.findById(id);
         if (userOptional.isPresent()){
             Investors user = userOptional.get();
