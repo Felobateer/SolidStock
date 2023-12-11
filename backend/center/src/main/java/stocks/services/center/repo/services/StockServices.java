@@ -105,7 +105,5 @@ public class StockServices {
         }
     }
 
-    private void saveLastPriceOfWeek(Stock stock, double lastPrice) {
 
-    }
 }
