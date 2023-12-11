@@ -1,6 +1,7 @@
 package stocks.services.center.repo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -33,7 +34,7 @@ public class StockServices {
         this.webClient = builder.baseUrl("https://finnhub.io").build();
     }
 
-
+    @Scheduled(fixedRate = 60000)
     public void fetchData() {
         String apiKey = this.apiKey;
 
