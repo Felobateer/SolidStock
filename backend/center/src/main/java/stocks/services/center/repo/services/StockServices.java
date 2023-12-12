@@ -3,6 +3,7 @@ package stocks.services.center.repo.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import stocks.services.center.domain.Stock;
@@ -34,6 +35,7 @@ public class StockServices {
         this.webClient = builder.baseUrl("https://finnhub.io").build();
     }
 
+    @Transactional
     @Scheduled(fixedRate = 60000)
     public void fetchData() {
         String apiKey = this.apiKey;
@@ -48,6 +50,8 @@ public class StockServices {
             }
         }
     }
+
+    @Transactional
 
     private void fetchStockInfo(String sym, String apiKey) {
         String apiInfoUrl = String.format(apiInfoTemplate, sym, apiKey);
@@ -71,6 +75,7 @@ public class StockServices {
         );
     }
 
+    @Transactional
     private void fetchStockPrice(String symbol, String apiKey) {
         String apiPriceUrl = String.format(apiPriceTemplate, symbol, apiKey);
 
