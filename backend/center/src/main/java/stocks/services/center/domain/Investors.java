@@ -17,7 +17,7 @@ public class Investors implements Serializable {
     private String password;
     private String username;
     private float balance;
-    @OneToMany(mappedBy = "investors", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "investor", cascade = CascadeType.ALL)
     private List<StockExchange> stockExchanges;
 
     public long getId() {

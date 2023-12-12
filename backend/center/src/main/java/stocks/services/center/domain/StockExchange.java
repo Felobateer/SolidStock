@@ -1,8 +1,17 @@
 package stocks.services.center.domain;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
+@Entity
 public class StockExchange {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @ManyToOne
+    @JoinColumn(name = "investor_id")
+    private Investors investor;
     private float sell;
     private float buy;
     private String symbol;
@@ -15,7 +24,8 @@ public class StockExchange {
         // Default constructor
     }
 
-    public StockExchange(float sell, float buy, String symbol, double assets, Date timestamp) {
+    public StockExchange(Investors investor, float sell, float buy, String symbol, double assets, Date timestamp) {
+        this.investor = investor;
         this.sell = sell;
         this.buy = buy;
         this.symbol = symbol;
