@@ -10,7 +10,7 @@ import java.util.List;
 public class Stock implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private long id;
     private String symbol;
     private String name;
@@ -25,22 +25,6 @@ public class Stock implements Serializable {
     private double high;
     private double low;
     private long timeStamp;
-
-//    private void Stock(JsonNode apiData, JsonNode apiNum) {
-//        this.symbol = apiData.get("ticker").asText();
-//        this.name = apiData.get("name").asText();
-//        this.imgUrl = apiData.get("logo").asText();
-//        this.industry = apiData.get("finnhubIndustry").asText();
-//        this.price = (float) apiNum.get("c").asDouble();
-//        this.prevPrice = (float) apiNum.get("pc").asDouble();
-//        this.buy = (float) apiNum.get("o").asDouble();
-//        this.sell = (float) apiNum.get("c").asDouble();
-//        this.change = apiNum.get("d").asDouble();
-//        this.high = apiNum.get("h").asDouble();
-//        this.low = apiNum.get("l").asDouble();
-//        this.timeStamp = apiNum.get("t").asLong();
-//    }
-
 
 
     public long getId() {
