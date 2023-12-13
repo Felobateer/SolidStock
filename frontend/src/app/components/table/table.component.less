@@ -1,0 +1,29 @@
+@import "../../variables.less";
+
+table {
+  border-radius: 5%;
+  border-collapse: collapse;
+  border: 4px @textColor solid;
+  width: 40%;
+  thead {
+    border-bottom: 1px @gold solid;
+    th {
+      font-size: 20px;
+    }
+  }
+  tbody {
+    &:nth-child(odd) {
+      background-color: @gold;
+      tr {
+        color: @dark;
+      }
+    }
+    tr {
+      height: 35px;
+      font-size: 16px;
+      td {
+        text-align: center;
+      }
+    }
+  }
+}

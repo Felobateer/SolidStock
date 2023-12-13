@@ -1,0 +1,36 @@
+@import "../../variables.less";
+
+.landing {
+  width: 100%;
+  height: 45rem;
+  margin-bottom: 100px;
+  background-image: url(../../../assets/landingImage.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .shade {
+    background-color: linear-gradient(to right, @dark, transparent);
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.content {
+  width: 25%;
+  height: fit-content;
+  margin: auto;
+  margin-left: 12.5%;
+  h1 {
+    color: @gold;
+    font-size: 2rem;
+    letter-spacing: -1%;
+    font-family: @title;
+    font-weight: bold;
+  }
+
+  p {
+    color: @gold;
+    font-size: 1.5rem;
+    font-family: @text;
+  }
+}

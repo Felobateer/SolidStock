@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   selector: 'app-market',
   standalone: true,
-  imports: [],
+  imports: [TableComponent],
   templateUrl: './market.component.html',
-  styleUrl: './market.component.less'
+  styleUrl: './market.component.less',
 })
-export class MarketComponent {
-
-}
+export class MarketComponent {}

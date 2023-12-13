@@ -1,1 +1,39 @@
-<p>table works!</p>
+<table>
+  <thead>
+    <tr>
+      @for(thead of theads; track thead) {
+      <th>
+        {{ thead }}
+      </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      @for(stock of stocks; track stock.id) {
+      <td>
+        <img src="stock.img" alt="img" />
+      </td>
+      <td>
+        {{ stock.industry }}
+      </td>
+      <td>
+        {{ stock.symbol }}
+      </td>
+      <td>
+        {{ stock.name }}
+      </td>
+      <td>{{ stock.high }} / {{ stock.low }}</td>
+      <td>
+        {{ stock.buy }}
+      </td>
+      <td>
+        {{ stock.sell }}
+      </td>
+      <td>
+        <button type="button">Select</button>
+      </td>
+      }
+    </tr>
+  </tbody>
+</table>

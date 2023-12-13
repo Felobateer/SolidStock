@@ -1,15 +1,27 @@
-<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-  <ul>
-    @for (link of links; track link; let i = $index) {
-    <li class="navLinks">
-      <a
-        [routerLink]="i == 0 ? '/' : '/' + link"
-        routerLinkActive="active"
-        class="navLink"
-      >
-        {{ CFL(link) }}
-      </a>
-    </li>
-    }
-  </ul>
+<nav>
+  <div>
+    <img class="navLogo" src="../../../assets/solidstockLogo.PNG" alt="Logo" />
+    <ul class="navMenu">
+      @for (link of links; track link; let i = $index) {
+      <li class="navLinks">
+        <a
+          class="navLink"
+          [routerLink]="i == 0 ? '/' : '/' + link"
+          routerLinkActive="active"
+        >
+          {{ CFL(link) }}
+        </a>
+      </li>
+      }
+    </ul>
+  </div>
+
+  <div class="navBtns">
+    <button class="navBtn" type="button">
+      <fa-icon [icon]="bell"></fa-icon>
+    </button>
+    <button class="navBtn" type="button">
+      <fa-icon [icon]="gear"></fa-icon>
+    </button>
+  </div>
 </nav>
