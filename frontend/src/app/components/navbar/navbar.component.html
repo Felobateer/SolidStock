@@ -1,3 +1,15 @@
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-  <!-- Navbar content -->
+  <ul>
+    @for (link of links; track link; let i = $index) {
+    <li class="navLinks">
+      <a
+        [routerLink]="i == 0 ? '/' : '/' + link"
+        routerLinkActive="active"
+        class="navLink"
+      >
+        {{ CFL(link) }}
+      </a>
+    </li>
+    }
+  </ul>
 </nav>

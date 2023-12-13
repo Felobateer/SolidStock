@@ -8,10 +8,10 @@ import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: '/market', component: MarketComponent },
-  { path: '/trades', component: TradesComponent },
-  { path: '/premium', component: PremiumComponent },
-  { path: '/profile', component: ProfileComponent },
-  { path: '/register', component: RegisterComponent },
-  { path: '**', redirectTo: '' }, // catch any unfound routes and redirect to home page
+  { path: 'market', component: MarketComponent },
+  { path: 'trades', component: TradesComponent },
+  { path: 'premium', component: PremiumComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: '**', redirectTo: '' }, //  catch any unfound routes and redirect to home page
 ];
