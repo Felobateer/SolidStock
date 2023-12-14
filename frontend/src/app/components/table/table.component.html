@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <tr>
-      @for(stock of stocks; track stock.id) {
+      @if (stocks.length > 0) { @for(stock of stocks; track stock.id) {
       <td>
         <img src="stock.img" alt="img" />
       </td>
@@ -33,6 +33,11 @@
       <td>
         <button type="button">Select</button>
       </td>
+      } } @else {
+      <td></td>
+      <td></td>
+      <td></td>
+      <app-loading></app-loading>
       }
     </tr>
   </tbody>

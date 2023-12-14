@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [],
+  imports: [LoadingComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.less',
 })
