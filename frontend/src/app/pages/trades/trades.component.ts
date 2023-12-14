@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { GraphComponent } from '../../components/graph/graph.component';
+import { OngoingComponent } from '../../components/ongoing/ongoing.component';
 
 @Component({
   selector: 'app-trades',
   standalone: true,
-  imports: [],
+  imports: [GraphComponent, OngoingComponent],
   templateUrl: './trades.component.html',
-  styleUrl: './trades.component.less'
+  styleUrl: './trades.component.less',
 })
-export class TradesComponent {
-
-}
+export class TradesComponent {}

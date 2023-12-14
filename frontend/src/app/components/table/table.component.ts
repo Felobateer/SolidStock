@@ -19,5 +19,16 @@ export class TableComponent {
     'Sell',
     '',
   ];
-  stocks: any[] = [];
+  stocks: stock[] = [];
+}
+interface stock {
+  id: number;
+  img: string;
+  industry: string;
+  symbol: string;
+  name: string;
+  high: number;
+  low: number;
+  buy: string;
+  sell: string;
 }
