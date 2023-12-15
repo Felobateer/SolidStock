@@ -1,1 +1,61 @@
-<p>register works!</p>
+<div id="register" class="container d-flex align-items-center min-vh-100">
+  <div class="mx-auto w-100 max-w-sm">
+    <div id="LoginLogo">
+      <img
+        src="../../../assets/solidstockLogo.PNG"
+        alt="Your Company"
+        width="200"
+      />
+    </div>
+    <h2 class="text-center mb-4">Sign in to your account</h2>
+
+    <form class="space-y-3" (ngSubmit)="handleLogin()">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          formControlName="username"
+          id="username"
+          name="username"
+          type="username"
+          autocomplete="username"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center p-0">
+          <label for="password" class="form-label">Password</label>
+          <div class="text-sm">
+            <a href="#" class="font-weight-bold text-primary"
+              >Forgot password?</a
+            >
+          </div>
+        </div>
+        <input
+          formControlName="password"
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-primary w-100">Sign in</button>
+      </div>
+    </form>
+
+    <p class="mt-4 text-center">
+      Not a member?
+      <a routerLink="/premium" class="font-weight-bold text-indigo-600">
+        Start a 30 day free trial
+      </a>
+    </p>
+    <p class="mt-2 text-center">
+      Demo account: Username: StockTrader & password: 1,000,000$
+    </p>
+  </div>
+</div>
