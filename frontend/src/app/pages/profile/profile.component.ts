@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.less'
+  styleUrl: './profile.component.less',
 })
 export class ProfileComponent {
-
+  fields: string[] = ['name', 'email', 'phone', 'password'];
 }
