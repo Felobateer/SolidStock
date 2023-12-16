@@ -5,6 +5,7 @@ import { TradesComponent } from './pages/trades/trades.component';
 import { PremiumComponent } from './pages/premium/premium.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,5 +14,5 @@ export const routes: Routes = [
   { path: 'premium', component: PremiumComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: RegisterComponent },
-  { path: '**', redirectTo: '' }, //  catch any unfound routes and redirect to home page
+  { path: '**', component: PagenotfoundComponent }, //  catch any unfound routes and redirect to home page
 ];
