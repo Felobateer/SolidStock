@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { LoadingComponent } from '../loading/loading.component';
+import { Stock } from '../../services/stocks.service';
 
 @Component({
   selector: 'app-table',
@@ -19,16 +20,7 @@ export class TableComponent {
     'Sell',
     '',
   ];
-  stocks: stock[] = [];
-}
-interface stock {
-  id: number;
-  img: string;
-  industry: string;
-  symbol: string;
-  name: string;
-  high: number;
-  low: number;
-  buy: string;
-  sell: string;
+  @Input() stocks: Stock[] = [];
+
+  constructor() {}
 }
