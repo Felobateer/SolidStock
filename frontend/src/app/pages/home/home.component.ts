@@ -3,6 +3,7 @@ import { LandingComponent } from '../../components/landing/landing.component';
 import { TableComponent } from '../../components/table/table.component';
 import { CardsComponent } from '../../components/cards/cards.component';
 import { StocksService, Stock } from '../../services/stocks.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -21,8 +22,13 @@ export class HomeComponent implements OnInit {
   }
 
   importStocks() {
-    this.data.getStocks('stocks/ten').subscribe((data) => {
-      this.stocks = data;
-    });
+    this.data.getStocks('stocks/ten').subscribe(
+      (data: Stock[]) => {
+        this.stocks = data;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }
