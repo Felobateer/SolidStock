@@ -6,7 +6,7 @@ import { environment } from './enviroment';
 export interface Stock {
   id: number;
   name: string;
-  weburl: string;
+  logo: string;
   finnhubIndustry: string;
   symbol: string;
   high: number;

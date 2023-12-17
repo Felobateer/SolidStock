@@ -12,7 +12,7 @@
     @if (stocks.length > 0) { @for(stock of stocks; track stock.id) {
     <tr>
       <td>
-        <img [src]="stock.weburl" alt="img" />
+        <img [src]="stock.logo" alt="img" />
       </td>
       <td>
         {{ stock.finnhubIndustry }}
