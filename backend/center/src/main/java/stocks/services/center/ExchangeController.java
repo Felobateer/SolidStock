@@ -28,7 +28,6 @@ public class ExchangeController {
 
     @GetMapping("/stocks/all")
     public ResponseEntity<List<Stock>> getStocks() {
-        stockServices.fetchData();
         List<Stock> stocks = exchangeServices.getAllStocks();
         return new ResponseEntity<>(stocks, HttpStatus.OK);
     }
