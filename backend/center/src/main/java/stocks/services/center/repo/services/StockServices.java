@@ -36,7 +36,6 @@ public class StockServices {
     }
 
     @Transactional
-    @Scheduled(fixedRate = 60000)
     public void fetchData() {
         String apiKey = this.apiKey;
 
@@ -52,7 +51,6 @@ public class StockServices {
     }
 
     @Transactional
-
     private void fetchStockInfo(String sym, String apiKey) {
         String apiInfoUrl = String.format(apiInfoTemplate, sym, apiKey);
 
