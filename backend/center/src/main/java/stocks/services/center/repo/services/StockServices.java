@@ -67,7 +67,7 @@ public class StockServices {
                     stockInfo.setName(infoResponse.getName());
                     stockInfo.setSymbol(sym);
                     stockInfo.setFinnhubIndustry(infoResponse.getFinnhubIndustry());
-                    stockInfo.setWeburl(infoResponse.getWeburl());
+                    stockInfo.setLogo(infoResponse.getLogo());
                 stockRepo.save(stockInfo);
                     }, error -> {
                     System.err.println("Error fetching stock info: " + error.getMessage());

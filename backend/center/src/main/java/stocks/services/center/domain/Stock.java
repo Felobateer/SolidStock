@@ -51,11 +51,11 @@ public class Stock implements Serializable {
         this.symbol = symbol;
     }
 
-    public String getWeburl() {
+    public String getLogo() {
         return imgUrl;
     }
 
-    public void setWeburl(String url) {
+    public void setLogo(String url) {
         this.imgUrl = url;
     }
 

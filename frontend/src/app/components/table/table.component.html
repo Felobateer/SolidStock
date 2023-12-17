@@ -9,13 +9,13 @@
     </tr>
   </thead>
   <tbody>
+    @if (stocks.length > 0) { @for(stock of stocks; track stock.id) {
     <tr>
-      @if (stocks.length > 0) { @for(stock of stocks; track stock.id) {
       <td>
-        <img [src]="stock.img" alt="img" />
+        <img [src]="stock.weburl" alt="img" />
       </td>
       <td>
-        {{ stock.industry }}
+        {{ stock.finnhubIndustry }}
       </td>
       <td>
         {{ stock.symbol }}
@@ -23,22 +23,24 @@
       <td>
         {{ stock.name }}
       </td>
-      <td>{{ stock.high }} / {{ stock.low }}</td>
       <td>
         {{ stock.buy }}
       </td>
       <td>
         {{ stock.sell }}
       </td>
+      <td>{{ stock.high }} / {{ stock.low }}</td>
       <td>
-        <button type="button">Select</button>
+        <button type="button" class="btn btn-primary">Select</button>
       </td>
-      } } @else {
+    </tr>
+    } } @else {
+    <tr>
       <td></td>
       <td></td>
       <td></td>
       <app-loading></app-loading>
-      }
     </tr>
+    }
   </tbody>
 </table>

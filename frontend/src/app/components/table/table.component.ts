@@ -12,12 +12,12 @@ import { Stock } from '../../services/stocks.service';
 export class TableComponent {
   theads: string[] = [
     '',
-    'industry',
-    'symbol',
-    'name',
-    'High/Low',
+    'Industry',
+    'Symbol',
+    'Name',
     'Buy',
     'Sell',
+    'High/Low',
     '',
   ];
   @Input() stocks: Stock[] = [];

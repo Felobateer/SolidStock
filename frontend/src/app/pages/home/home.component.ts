@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
     this.data.getStocks('stocks/ten').subscribe(
       (data: Stock[]) => {
         this.stocks = data;
+        console.log(data);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
