@@ -6,12 +6,20 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import stocks.services.center.domain.Stock;
 import stocks.services.center.domain.StockPriceResponse;
 import stocks.services.center.repo.StockRepo;
-
+import reactor.core.publisher.Flux;
+import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
+import static reactor.core.publisher.Flux.*;
 
 
 @Service
@@ -41,16 +49,26 @@ public class StockServices {
     @Transactional
     public void fetchData() {
         String apiKey = this.apiKey;
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 
-        for(String stock: this.apiStocks) {
-            try {
+        try {
+            for (String stock : this.apiStocks) {
                 fetchStockInfo(stock, apiKey);
-                fetchStockPrice(stock, apiKey);
-            } catch (Exception e) {
-                System.err.println("Error updating stock data for " +  stock + ": " + e.getMessage());
+
+                // Schedule the fetchStockPrice task at a fixed delay (executes once)
+                ScheduledFuture<?> future = scheduler.schedule(() -> fetchStockPrice(stock, apiKey), 10, TimeUnit.SECONDS);
+
+                // Optionally, you can cancel the task after the first execution
+                scheduler.schedule(() -> future.cancel(false), 11, TimeUnit.SECONDS);
             }
+        } catch (Exception e) {
+            System.err.println("Error updating stock data: " + e.getMessage());
+        } finally {
+            // Shut down the scheduler after all tasks are scheduled
+            scheduler.shutdown();
         }
+
     }
 
     @PostConstruct
@@ -125,28 +143,29 @@ public class StockServices {
     public void updateStockPrice() {
         List<Stock> stocks = stockRepo.findAll();
 
-        stocks.forEach(stock -> {
-            String apiPriceUrl = String.format(this.apiPriceTemplate, stock.getSymbol(), apiKey);
-            Mono<StockPriceResponse> responseMono = webClient.get().uri(apiPriceUrl).retrieve().bodyToMono(StockPriceResponse.class);
-            responseMono.subscribe(
-                    priceResponse -> {
-                        stock.setHigh(priceResponse.getH());
-                        stock.setLow(priceResponse.getL());
-                        stock.setBuy(priceResponse.getO());
-                        stock.setSell(priceResponse.getC());
-                        stock.setBuyChange(priceResponse.getDp());
-                        stock.setSellChange(priceResponse.getD());
-                        addPrevPrice(stock, priceResponse.getC());
-                        shiftPrices(stock);
-                    },
-                    error -> {
-                        System.err.println("Error updating stock price for " + stock.getSymbol() + ": " + error.getMessage());
-                        // Handle error if needed
-                    }
-            );
-        });
-
-        // Save the updated stocks
-        stockRepo.saveAll(stocks);
+        Flux.interval(Duration.ofSeconds(1)) // Introduce a delay of 1 second between each run
+                .take(stocks.size()) // Limit the number of runs to the number of stocks
+                .flatMap(index -> {
+                    Stock stock = stocks.get(index.intValue());
+                    String apiPriceUrl = String.format(this.apiPriceTemplate, stock.getSymbol(), apiKey);
+                    return webClient.get().uri(apiPriceUrl).retrieve().bodyToMono(StockPriceResponse.class)
+                            .doOnNext(priceResponse -> {
+                                stock.setHigh(priceResponse.getH());
+                                stock.setLow(priceResponse.getL());
+                                stock.setBuy(priceResponse.getO());
+                                stock.setSell(priceResponse.getC());
+                                stock.setBuyChange(priceResponse.getDp());
+                                stock.setSellChange(priceResponse.getD());
+                                addPrevPrice(stock, priceResponse.getC());
+                                shiftPrices(stock);
+                            })
+                            .onErrorResume(error -> {
+                                System.err.println("Error updating stock price for " + stock.getSymbol() + error);
+                                return Mono.empty(); // Continue with other stocks even if one fails
+                            });
+                })
+                .doOnComplete(() -> stockRepo.saveAll(stocks))
+                .collectList()
+                .block();
     }
 }
