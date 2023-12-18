@@ -20,8 +20,10 @@ public class CenterApplication {
 		SpringApplication.run(CenterApplication.class, args);
 	}
 
+
+
 	@Scheduled(fixedRate = 600000)
-	public void fetchData() {
-		stockServices.fetchData();
+	public void updateData() {
+		stockServices.updateStockPrice();
 	}
 }

@@ -1,5 +1,6 @@
 package stocks.services.center.repo.services;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,8 @@ public class StockServices {
     public StockServices(StockRepo stockRepo, WebClient.Builder builder) {
         this.stockRepo = stockRepo;
         this.webClient = builder.baseUrl("https://finnhub.io").build();
+
+        fetchData();
     }
 
     @Transactional
@@ -48,6 +51,11 @@ public class StockServices {
                 System.err.println("Error updating stock data for " +  stock + ": " + e.getMessage());
             }
         }
+    }
+
+    @PostConstruct
+    public void onStartup() {
+        fetchData();
     }
 
     @Transactional
@@ -114,5 +122,31 @@ public class StockServices {
         }
     }
 
+    public void updateStockPrice() {
+        List<Stock> stocks = stockRepo.findAll();
 
+        stocks.forEach(stock -> {
+            String apiPriceUrl = String.format(this.apiPriceTemplate, stock.getSymbol(), apiKey);
+            Mono<StockPriceResponse> responseMono = webClient.get().uri(apiPriceUrl).retrieve().bodyToMono(StockPriceResponse.class);
+            responseMono.subscribe(
+                    priceResponse -> {
+                        stock.setHigh(priceResponse.getH());
+                        stock.setLow(priceResponse.getL());
+                        stock.setBuy(priceResponse.getO());
+                        stock.setSell(priceResponse.getC());
+                        stock.setBuyChange(priceResponse.getDp());
+                        stock.setSellChange(priceResponse.getD());
+                        addPrevPrice(stock, priceResponse.getC());
+                        shiftPrices(stock);
+                    },
+                    error -> {
+                        System.err.println("Error updating stock price for " + stock.getSymbol() + ": " + error.getMessage());
+                        // Handle error if needed
+                    }
+            );
+        });
+
+        // Save the updated stocks
+        stockRepo.saveAll(stocks);
+    }
 }
