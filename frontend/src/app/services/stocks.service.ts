@@ -13,6 +13,8 @@ export interface Stock {
   low: number;
   buy: number;
   sell: number;
+  buyChange: number;
+  sellChange: number;
 }
 @Injectable({
   providedIn: 'root',

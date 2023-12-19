@@ -23,13 +23,13 @@
       <td>
         {{ stock.name }}
       </td>
-      <td>
+      <td [class]="checkChange(stock.buyChange)">
         {{ stock.buy }}
       </td>
-      <td>
+      <td [class]="checkChange(stock.sellChange)">
         {{ stock.sell }}
       </td>
-      <td>{{ stock.high }} / {{ stock.low }}</td>
+      <td class="red">{{ stock.high }} / {{ stock.low }}</td>
       <td>
         <button type="button" class="btn btn-primary">Select</button>
       </td>
