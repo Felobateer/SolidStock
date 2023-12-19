@@ -25,9 +25,5 @@ export class GraphComponent {
 
   constructor(private data: StocksService) {}
 
-  loadHistory(id: number) {
-    this.data.getHistory(id).subscribe((data) => {
-      this.lineChartData[0].data = data;
-    });
-  }
+  loadHistory(id: number) {}
 }

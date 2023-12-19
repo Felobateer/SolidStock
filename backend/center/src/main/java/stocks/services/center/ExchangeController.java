@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import stocks.services.center.domain.Investors;
 import stocks.services.center.domain.Stock;
 import stocks.services.center.domain.StockExchange;
+import stocks.services.center.repo.InvestorRepo;
 import stocks.services.center.repo.services.ExchangeServices;
 import stocks.services.center.repo.services.StockServices;
 import stocks.services.center.repo.services.UserServices;

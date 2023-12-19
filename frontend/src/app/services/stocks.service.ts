@@ -28,7 +28,7 @@ export class StocksService {
     return this.http.get<Stock[]>(this.api + type);
   }
 
-  getHistory(id: number): Observable<number[]> {
-    return this.http.get<number[]>(this.api + 'history/' + id);
+  getHistory(id: number): Observable<Stock[]> {
+    return this.http.get<Stock[]>(this.api + 'history/' + id);
   }
 }
