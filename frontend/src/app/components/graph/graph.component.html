@@ -1,7 +1,15 @@
 <section class="graph flex justify-center py-12 overflow-x-hidden mt-20">
-  @if(selectedStock) {
-  <!-- <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>  -->
+  @if(this.lineChartData[0].data.length > 0) {
+  <canvas
+    baseChart
+    [datasets]="lineChartData"
+    [labels]="lineChartLabels"
+    [options]="lineChartOptions"
+    [legend]="lineChartLegend"
+    [plugins]="lineChartPlugins"
+  >
+  </canvas>
   } @else {
-  <div class="w-3/5 h-96 bg-blue-950 rounded-lg"></div>
+  <div class="blankChart"></div>
   }
 </section>

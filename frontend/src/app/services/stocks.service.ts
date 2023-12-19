@@ -25,20 +25,10 @@ export class StocksService {
   constructor(private http: HttpClient) {}
 
   getStocks(type: string): Observable<Stock[]> {
-    // const stocks: Stock[] = [];
-    // this.http.get(this.api + type).subscribe(data => {
-    //   data.map(stock => stocks.push(
-    //     id: stock.id,
-    //     name: stock.name,
-    //     img: stock.weburl,
-    //     industry: stock.finnhubIndustry,
-    //     symbol: stock.symbol,
-    //     high: stock.high,
-    //     low: stock.low,
-    //     buy: stock.buy,
-    //     sell: stock.sell,
-    //   ))
-    // })
     return this.http.get<Stock[]>(this.api + type);
+  }
+
+  getHistory(id: number): Observable<number[]> {
+    return this.http.get<number[]>(this.api + 'history/' + id);
   }
 }
