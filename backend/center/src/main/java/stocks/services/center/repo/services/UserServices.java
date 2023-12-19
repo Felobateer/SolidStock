@@ -18,6 +18,10 @@ public class UserServices {
         this.investorRepo = investorRepo;
     }
 
+    public Optional<Investors> getUserById(long id) {
+       return investorRepo.findById(id);
+    }
+
     public void SignUp(String name, String email, String password, String username) {
         Investors newUser = new Investors();
         newUser.setName(name);

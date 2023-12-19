@@ -22,4 +22,13 @@ export class RegisterComponent {
   handleLogin() {
     this.user.signIn(this.form.value.username, this.form.value.password);
   }
+
+  handleDemo() {
+    this.user.createUser(
+      'Investor',
+      'investor@solid-stock.com',
+      '1,000,000$',
+      'Investor'
+    );
+  }
 }

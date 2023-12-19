@@ -15,21 +15,15 @@
             class="block text-sm font-semibold text-indigo"
             >{{ field }}</label
           >
-          <input
-            type="text"
-            [id]="field"
-            [name]="field"
-            class="w-full px-4 py-2 mt-1 text-sm text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-indigo focus:border-indigo-300"
-            placeholder="John Doe"
-            required
-          />
+          <br />
+          <div>
+            {{ mapInvestor(field) }}
+            <button type="button" class="btn btn-secondary">Edit</button>
+          </div>
         </div>
         }
-        <button
-          type="submit"
-          class="w-full py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Join
+        <button type="submit" class="w-full btn btn-danger">
+          Delete Account
         </button>
       </form>
     </div>

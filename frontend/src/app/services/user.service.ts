@@ -3,6 +3,15 @@ import { environment } from './enviroment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface Investor {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  username: string;
+  balance: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,6 +19,11 @@ export class UserService {
   private api = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
+
+  getUserById(id: number): Observable<Investor> {
+    const url = `${this.api}/user/info/${id}`;
+    return this.http.get<Investor>(url);
+  }
 
   createUser(
     name: string,

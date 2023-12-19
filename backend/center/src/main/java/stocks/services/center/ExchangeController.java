@@ -13,6 +13,7 @@ import stocks.services.center.repo.services.UserServices;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/services")
@@ -105,6 +106,17 @@ public class ExchangeController {
             return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/user/info/{id}")
+    public ResponseEntity<Investors> getUser(@PathVariable long id) {
+        Optional<Investors> userOptional = userServices.getUserById(id);
+        if (userOptional.isPresent()) {
+            Investors user = userOptional.get();
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
