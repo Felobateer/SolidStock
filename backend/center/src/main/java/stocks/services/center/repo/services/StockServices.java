@@ -143,7 +143,7 @@ public class StockServices {
     public void updateStockPrice() {
         List<Stock> stocks = stockRepo.findAll();
 
-        Flux.interval(Duration.ofSeconds(1)) // Introduce a delay of 1 second between each run
+        Flux.interval(Duration.ofSeconds(2)) // Introduce a delay of 2 second between each run
                 .take(stocks.size()) // Limit the number of runs to the number of stocks
                 .flatMap(index -> {
                     Stock stock = stocks.get(index.intValue());
