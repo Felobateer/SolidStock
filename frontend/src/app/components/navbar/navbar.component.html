@@ -20,8 +20,33 @@
     <button class="navBtn" type="button">
       <fa-icon [icon]="bell"></fa-icon>
     </button>
-    <button class="navBtn" type="button">
-      <fa-icon [icon]="gear"></fa-icon>
-    </button>
+    <div ngbDropdown>
+      <button
+        ngbDropdownToggle
+        id="settings"
+        class="navBtn"
+        type="button"
+        (click)="toggleSettings()"
+      >
+        <fa-icon class="icon" [icon]="gear"></fa-icon>
+      </button>
+      <div
+        ngbDropdownMenu
+        aria-labelledby="settings"
+        class="d-flex flex-column"
+        [class]="settings ? 'block' : 'hidden'"
+      >
+        @for(item of dropdownMenu; track item) {
+        <button
+          (click)="toggleSettings()"
+          class="d-block"
+          ngbDropdownItem
+          [routerLink]="'/' + item"
+        >
+          {{ item }}
+        </button>
+        }
+      </div>
+    </div>
   </div>
 </nav>
