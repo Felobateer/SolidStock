@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { LoadingComponent } from '../loading/loading.component';
 import { Stock } from '../../services/stocks.service';
+import { PurchaseFormComponent } from '../purchase-form/purchase-form.component';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [LoadingComponent],
+  imports: [LoadingComponent, PurchaseFormComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.less',
 })

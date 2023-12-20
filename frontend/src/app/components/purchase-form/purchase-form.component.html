@@ -1,1 +1,49 @@
-<p>purchase-form works!</p>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="btn-close btn btn-primary"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="selectedStock">
+      <div class="stockInfo">
+        <img src="" alt="img" />
+        <h1>Name</h1>
+      </div>
+      <div class="stockPrice">
+        <p>buy price</p>
+        <p>sell price</p>
+      </div>
+    </div>
+    <form>
+      <div>
+        <label for="type">Type</label>
+        <input type="radio" id="buy" name="type" checked />
+        <label for="buy">Buy</label>
+
+        <input type="radio" id="sell" name="type" />
+        <label for="sell">Sell</label>
+      </div>
+
+      <div>
+        <label for="assets">Assets</label>
+        <input type="number" id="assets" name="assets" required />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Confirm
+    </button>
+  </div>
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(content)">Select</button>
