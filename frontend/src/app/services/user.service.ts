@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from './enviroment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, pipe, tap } from 'rxjs';
 
 export interface Investor {
   id: number;
@@ -17,6 +17,7 @@ export interface Investor {
 })
 export class UserService {
   private api = environment.apiUrl;
+  public id: number | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -42,7 +43,9 @@ export class UserService {
 
   signIn(username: string, password: string): Observable<any> {
     const params = { username, password };
-    return this.http.post<any>(`${this.api}/user/sign-in`, null, { params });
+    return this.http
+      .post<any>(`${this.api}/user/sign-in`, null, { params })
+      .pipe(tap((res) => (this.id = res.id)));
   }
 
   addBalance(id: number, amount: number): Observable<void> {

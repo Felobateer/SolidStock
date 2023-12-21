@@ -1,14 +1,36 @@
-<h1>Create an account</h1>
-
-<form class="registerForm">
-  @for(entry of entryFields; track entry){
-
-  <div>
-    <label>
-      {{ entry }}
-    </label>
-    <input [value]="entry" type="text" width="300" height="20" required />
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create an account</h4>
+    <button
+      type="button"
+      class="btn-close btn btn-primary"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
-  }
-  <button type="submit">Create</button>
-</form>
+  <div class="modal-body">
+    <form class="registerForm">
+      @for(entry of entryFields; track entry){
+
+      <div>
+        <label>
+          {{ entry }}
+        </label>
+        <input [value]="entry" type="text" width="300" height="20" required />
+      </div>
+      }
+      <button type="submit">Create</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Confirm
+    </button>
+  </div>
+</ng-template>
+
+<button class="btn btn-primary" (click)="open(content)">Register</button>

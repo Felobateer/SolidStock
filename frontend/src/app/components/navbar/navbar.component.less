@@ -48,7 +48,8 @@ nav {
   opacity: 0;
 }
 
-#settings {
+#settings,
+#notification {
   position: relative;
   width: 39px;
   height: 39px;
@@ -56,5 +57,11 @@ nav {
     position: absolute;
     background-color: @textColor;
     left: 9px;
+    bottom: 9px;
   }
+}
+
+.active {
+  padding-bottom: 3px;
+  border-bottom: 4px solid @gold;
 }

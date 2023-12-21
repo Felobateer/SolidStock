@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-register-form',
@@ -12,6 +13,32 @@ import { UserService } from '../../services/user.service';
 export class RegisterFormComponent {
   register: FormGroup;
   entryFields: string[] = ['name', 'email', 'username', 'password'];
+  private modal = inject(NgbModal);
+  closeResult = '';
+
+  open(content: TemplateRef<any>) {
+    this.modal
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
+  }
+
+  private getDismissReason(reason: any): string {
+    switch (reason) {
+      case ModalDismissReasons.ESC:
+        return 'by pressing ESC';
+      case ModalDismissReasons.BACKDROP_CLICK:
+        return 'by clicking on a backdrop';
+      default:
+        return `with: ${reason}`;
+    }
+  }
 
   constructor(private fb: FormBuilder, private user: UserService) {
     this.register = this.fb.group({

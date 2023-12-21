@@ -8,6 +8,7 @@
           class="navLink"
           [routerLink]="i == 0 ? '/' : '/' + link"
           routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: i === 0 }"
         >
           {{ CFL(link) }}
         </a>
@@ -17,8 +18,8 @@
   </div>
 
   <div class="navBtns">
-    <button class="navBtn" type="button">
-      <fa-icon [icon]="bell"></fa-icon>
+    <button class="navBtn" id="notification" type="button">
+      <fa-icon [icon]="bell" class="iconBell"></fa-icon>
     </button>
     <div ngbDropdown>
       <button

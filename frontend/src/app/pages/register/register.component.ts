@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { RegisterFormComponent } from '../../components/register-form/register-form.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [],
+  imports: [RegisterFormComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.less',
 })
