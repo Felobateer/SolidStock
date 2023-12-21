@@ -11,22 +11,19 @@
   <div class="modal-body">
     <form class="registerForm">
       @for(entry of entryFields; track entry){
-
-      <div>
-        <label>
-          {{ entry }}
-        </label>
-        <input [value]="entry" type="text" width="300" height="20" required />
-      </div>
+      <mat-form-field class="example-form-field">
+        <mat-label>{{ entry }}</mat-label>
+        <input matInput type="text" />
+      </mat-form-field>
       }
-      <button type="submit">Create</button>
+      <button (click)="handleCreate()" type="submit">Create</button>
     </form>
   </div>
   <div class="modal-footer">
     <button
       type="button"
       class="btn btn-outline-dark"
-      (click)="modal.close('Save click')"
+      (click)="handleCreate(); modal.close('Save click')"
     >
       Confirm
     </button>

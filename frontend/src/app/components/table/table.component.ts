@@ -2,11 +2,18 @@ import { Component, Input } from '@angular/core';
 import { LoadingComponent } from '../loading/loading.component';
 import { Stock } from '../../services/stocks.service';
 import { PurchaseFormComponent } from '../purchase-form/purchase-form.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [LoadingComponent, PurchaseFormComponent],
+  imports: [
+    LoadingComponent,
+    PurchaseFormComponent,
+    NgbPaginationModule,
+    CommonModule,
+  ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.less',
 })
@@ -22,6 +29,8 @@ export class TableComponent {
     '',
   ];
   @Input() stocks: Stock[] = [];
+  page = 1;
+  pageSize = 20;
 
   constructor() {}
 

@@ -9,7 +9,8 @@
     </tr>
   </thead>
   <tbody>
-    @if (stocks.length > 0) { @for(stock of stocks; track stock.id) {
+    @if (stocks.length > 0) { @for(stock of stocks | slice: (page-1) * pageSize:
+    page * pageSize; track stock.id) {
     <tr>
       <td>
         <img [src]="stock.logo" alt="img" />
@@ -31,7 +32,7 @@
       </td>
       <td class="red">{{ stock.high }} / {{ stock.low }}</td>
       <td>
-        <app-purchase-form></app-purchase-form>
+        <app-purchase-form [stock]="stock"></app-purchase-form>
       </td>
     </tr>
     } } @else {
@@ -44,3 +45,18 @@
     }
   </tbody>
 </table>
+
+@if(stocks.length > pageSize) {
+<div class="pagination px-auto py-3 mx-auto">
+  <div>
+    <ngb-pagination
+      [collectionSize]="stocks.length"
+      [(page)]="page"
+      [maxSize]="5"
+      [rotate]="true"
+      [ellipses]="false"
+      [boundaryLinks]="true"
+    />
+  </div>
+</div>
+}

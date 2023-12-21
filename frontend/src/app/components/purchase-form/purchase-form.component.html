@@ -11,27 +11,47 @@
   <div class="modal-body">
     <div class="selectedStock">
       <div class="stockInfo">
-        <img src="" alt="img" />
-        <h1>Name</h1>
+        <img [src]="stock?.logo" alt="img" />
+        <h1>
+          {{ stock?.name }}
+        </h1>
       </div>
       <div class="stockPrice">
-        <p>buy price</p>
-        <p>sell price</p>
+        <p>
+          Buy Price:
+          {{ stock?.buy }}
+        </p>
+        <p>
+          Sell Price:
+          {{ stock?.sell }}
+        </p>
       </div>
     </div>
-    <form>
+    <form [formGroup]="openEntry" #f="ngForm">
       <div>
         <label for="type">Type</label>
-        <input type="radio" id="buy" name="type" checked />
+        <input
+          type="radio"
+          id="buy"
+          name="type"
+          formControlName="type"
+          checked
+        />
         <label for="buy">Buy</label>
 
-        <input type="radio" id="sell" name="type" />
+        <input type="radio" id="sell" name="type" formControlName="type" />
         <label for="sell">Sell</label>
       </div>
 
       <div>
         <label for="assets">Assets</label>
-        <input type="number" id="assets" name="assets" required />
+        <input
+          type="number"
+          id="assets"
+          name="assets"
+          formControlName="assets"
+          required
+        />
       </div>
     </form>
   </div>
@@ -39,7 +59,8 @@
     <button
       type="button"
       class="btn btn-outline-dark"
-      (click)="modal.close('Save click')"
+      (click)="handleConfirm(); modal.close('Save click')"
+      [disabled]="openEntry.invalid"
     >
       Confirm
     </button>

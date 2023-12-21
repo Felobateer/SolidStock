@@ -1,12 +1,19 @@
 import { Component, inject, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-register-form',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.less',
 })
@@ -56,5 +63,6 @@ export class RegisterFormComponent {
       this.register.value.username,
       this.register.value.password
     );
+    console.log(this.register.value);
   }
 }
