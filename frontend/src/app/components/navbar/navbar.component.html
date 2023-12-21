@@ -18,9 +18,28 @@
   </div>
 
   <div class="navBtns">
-    <button class="navBtn" id="notification" type="button">
-      <fa-icon [icon]="bell" class="iconBell"></fa-icon>
-    </button>
+    <div class="notification" ngbDropdown>
+      <button
+        ngbDropdownToggle
+        (click)="toggleNotifications()"
+        class="navBtn"
+        id="notification"
+        type="button"
+      >
+        <fa-icon [icon]="bell" class="icon bell"></fa-icon>
+      </button>
+      <div
+        ngbDropdownMenu
+        class="p-3"
+        aria-labelledby="notifications"
+        class="d-flex flex-column"
+        [class]="notifications ? 'block' : 'hidden'"
+      >
+        <div class="notify bg-dark p-2 mb-1" ngbDropdownItem>
+          <p class="text-white">Hello I'm notifications</p>
+        </div>
+      </div>
+    </div>
     <div ngbDropdown>
       <button
         ngbDropdownToggle

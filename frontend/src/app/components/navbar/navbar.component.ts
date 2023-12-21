@@ -19,6 +19,7 @@ export class NavbarComponent {
   bell = faBell;
   gear = faGear;
   settings: boolean = false;
+  notifications: boolean = false;
   // Capitalize the First Letter
   CFL(word: string): string {
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
@@ -26,6 +27,9 @@ export class NavbarComponent {
 
   toggleSettings(): void {
     this.settings = !this.settings;
-    console.log(this.settings);
+  }
+
+  toggleNotifications(): void {
+    this.notifications = !this.notifications;
   }
 }
