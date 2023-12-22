@@ -12,6 +12,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './market.component.less',
 })
 export class MarketComponent {
+  allStocks: Stock[] = [];
   stocks: Stock[] = [];
 
   constructor(private data: StocksService) {}
@@ -23,7 +24,8 @@ export class MarketComponent {
   importStocks() {
     this.data.getStocks('stocks/all').subscribe(
       (data: Stock[]) => {
-        this.stocks = data;
+        this.allStocks = data;
+        this.stocks = this.allStocks.slice();
         console.log(data);
       },
       (error: HttpErrorResponse) => {
@@ -32,7 +34,15 @@ export class MarketComponent {
     );
   }
 
-  searchStock(event: HTMLInputElement) {
-    this.stocks = this.stocks.filter((stock) => stock.name === event.value);
+  searchStock(event: Event): void {
+    const inputValue = (event.target as HTMLInputElement).value;
+    if (inputValue === '') {
+      this.stocks = this.allStocks;
+    } else {
+      // Filter stocks based on the input value
+      this.stocks = this.allStocks.filter((stock) =>
+        stock.name.toLowerCase().includes(inputValue)
+      );
+    }
   }
 }

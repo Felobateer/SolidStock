@@ -12,11 +12,12 @@ table {
     th {
       font-size: 20px;
       color: @textColor;
+      text-align: center;
     }
   }
   tbody {
-    &:nth-child(odd) {
-      background-color: @gold;
+    tr:nth-child(odd) {
+      background-color: rgba(45, 45, 45, 0.6);
       tr {
         color: @dark;
       }
@@ -25,7 +26,6 @@ table {
       height: 35px;
       font-size: 16px;
       td {
-        text-align: center;
         color: @textColor;
       }
     }

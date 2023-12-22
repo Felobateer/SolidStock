@@ -12,10 +12,10 @@ export class ProfileComponent implements OnInit {
   fields: string[] = ['name', 'email', 'username', 'password', 'balance'];
   investor: Investor = {
     id: 0,
-    name: '',
-    email: '',
-    username: '',
-    password: '',
+    name: 'name',
+    email: 'email',
+    username: 'username',
+    password: 'password',
     balance: 0,
   };
   id: number = 0;
@@ -64,5 +64,9 @@ export class ProfileComponent implements OnInit {
       default:
         return null;
     }
+  }
+
+  CFL(word: string) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 }
