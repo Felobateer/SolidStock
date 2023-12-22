@@ -1,3 +1,33 @@
-.example-full-width {
-  width: 100%;
+@import "../../variables.less";
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  background-color: @dark;
+}
+
+.modal-header {
+  h4 {
+    color: @textColor;
+    font-family: @title;
+    font-size: 24px;
+  }
+}
+
+.registerForm {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  label {
+    .setText;
+  }
+  input {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    margin-bottom: 15px;
+  }
 }

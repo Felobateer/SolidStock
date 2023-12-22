@@ -1,6 +1,6 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">Stock Form</h4>
     <button
       type="button"
       class="btn-close btn btn-primary"
@@ -27,8 +27,8 @@
         </p>
       </div>
     </div>
-    <form [formGroup]="openEntry" #f="ngForm">
-      <div>
+    <form id="purchaseForm" [formGroup]="openEntry" #f="ngForm">
+      <div class="selectType">
         <label for="type">Type</label>
         <input
           type="radio"
@@ -58,7 +58,7 @@
   <div class="modal-footer">
     <button
       type="button"
-      class="btn btn-outline-dark"
+      class="btn btn-success"
       (click)="handleConfirm(); modal.close('Save click')"
       [disabled]="openEntry.invalid"
     >

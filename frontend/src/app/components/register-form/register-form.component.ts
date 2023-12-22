@@ -3,23 +3,23 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-register-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.less',
 })
 export class RegisterFormComponent {
   register: FormGroup;
   entryFields: string[] = ['name', 'email', 'username', 'password'];
+  registerValues: { [key: string]: string } = {};
   private modal = inject(NgbModal);
   closeResult = '';
 
@@ -54,15 +54,30 @@ export class RegisterFormComponent {
       username: ['', [Validators.required, Validators.minLength(8)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
+    this.register.setValue({
+      name: this.registerValues['name'] || '',
+      email: this.registerValues['email'] || '',
+      username: this.registerValues['username'] || '',
+      password: this.registerValues['password'] || '',
+    });
   }
 
   handleCreate() {
-    this.user.createUser(
-      this.register.value.name,
-      this.register.value.email,
-      this.register.value.username,
-      this.register.value.password
+    const name = this.register.value.name;
+    const email = this.register.value.email;
+    const username = this.register.value.username;
+    const password = this.register.value.password;
+    this.user.createUser(name, email, password, username).subscribe(
+      () => {
+        alert(this.register.value);
+      },
+      (error) => {
+        alert(error);
+      }
     );
-    console.log(this.register.value);
+  }
+
+  CFL(word: string) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 }

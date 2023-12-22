@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from './enviroment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, pipe, tap } from 'rxjs';
+import { Observable, pipe, tap, catchError, throwError } from 'rxjs';
 
 export interface Investor {
   id: number;
@@ -33,7 +33,12 @@ export class UserService {
     username: string
   ): Observable<void> {
     const params = { name, email, password, username };
-    return this.http.post<void>(`${this.api}/user/new`, null, { params });
+    return this.http.post<void>(`${this.api}/user/new`, null, { params }).pipe(
+      catchError((err: any) => {
+        alert(err);
+        return throwError('Error failed to create account');
+      })
+    );
   }
 
   editUser(id: number, field: string, edit: string): Observable<void> {
