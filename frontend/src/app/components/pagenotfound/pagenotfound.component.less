@@ -1,0 +1,28 @@
+@import "../../variables.less";
+
+.notFound {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 65%;
+  img {
+    width: 300px;
+    height: fit-content;
+    margin: 2rem auto;
+  }
+  h1 {
+    .setText;
+    margin: 2rem auto;
+  }
+  button {
+    width: 200px;
+    margin: 2rem auto;
+  }
+}
+
+@media (max-width: 1000px) {
+  .notFound {
+    height: 55%;
+  }
+}
