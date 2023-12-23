@@ -36,7 +36,7 @@ export class UserService {
     return this.http.post<void>(`${this.api}/user/new`, null, { params }).pipe(
       catchError((err: any) => {
         alert(err);
-        return throwError('Error failed to create account');
+        return throwError('Error failed to create account ' + err.message);
       })
     );
   }

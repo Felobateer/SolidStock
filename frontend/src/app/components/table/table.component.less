@@ -37,3 +37,37 @@ table {
   .setRow;
   justify-content: center;
 }
+
+@media (max-width: 1000px) {
+  table {
+    width: 90%;
+  }
+}
+
+@media (max-width: 500px) {
+  table {
+    width: 100%;
+    thead {
+      th {
+        &:first-of-type,
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(7) {
+          display: none;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          &:first-of-type,
+          &:nth-child(2),
+          &:nth-child(3),
+          &:nth-child(7) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

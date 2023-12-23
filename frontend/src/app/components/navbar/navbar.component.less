@@ -52,7 +52,8 @@ nav {
 }
 
 #settings,
-#notification {
+#notification,
+#mobile {
   position: relative;
   width: 39px;
   height: 39px;
@@ -65,9 +66,48 @@ nav {
   .bell {
     left: 10px;
   }
+  .bars {
+    left: 11px;
+  }
+}
+
+#mobile {
+  display: none;
+}
+
+.navLink {
+  font-size: 1.1rem;
+  color: black;
+  font-family: @text;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-decoration: none;
 }
 
 .active {
   padding-bottom: 3px;
   border-bottom: 4px solid @gold;
+}
+
+@media (max-width: 1000px) {
+  nav {
+    padding: 1rem;
+    position: relative;
+  }
+}
+
+@media (max-width: 500px) {
+  #mobile {
+    display: block;
+  }
+
+  .navMenu {
+    display: none;
+  }
+
+  nav {
+    div {
+      justify-content: space-between;
+    }
+  }
 }

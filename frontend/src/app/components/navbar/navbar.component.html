@@ -68,5 +68,37 @@
         }
       </div>
     </div>
+    <div class="mobile" ngbDropdown>
+      <button
+        ngbDropdownToggle
+        (click)="toggleMobile()"
+        class="navBtn"
+        id="mobile"
+        type="button"
+      >
+        <fa-icon [icon]="bars" class="icon bars"></fa-icon>
+      </button>
+      <div
+        ngbDropdownMenu
+        class="p-3"
+        aria-labelledby="mobile"
+        class="d-flex flex-column"
+        [class]="mobile ? 'block' : 'hidden'"
+      >
+        @for (link of links; track link; let i = $index) {
+        <div class="navLinks" ngbDropdownItem>
+          <button
+            (click)="toggleMobile()"
+            class="navLink"
+            [routerLink]="i == 0 ? '/' : '/' + link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: i === 0 }"
+          >
+            {{ CFL(link) }}
+          </button>
+        </div>
+        }
+      </div>
+    </div>
   </div>
 </nav>
