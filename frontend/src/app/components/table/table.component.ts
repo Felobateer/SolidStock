@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { LoadingComponent } from '../loading/loading.component';
-import { Stock } from '../../services/stocks.service';
+import { Stock } from '../../models/stock.model';
 import { PurchaseFormComponent } from '../purchase-form/purchase-form.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, Investor } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
+import { Investor } from '../../models/investor.model';
 
 @Component({
   selector: 'app-profile',

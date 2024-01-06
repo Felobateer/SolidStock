@@ -2,15 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from './enviroment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, pipe, tap, catchError, throwError } from 'rxjs';
-
-export interface Investor {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  username: string;
-  balance: number;
-}
+import { Investor } from '../models/investor.model';
 
 @Injectable({
   providedIn: 'root',

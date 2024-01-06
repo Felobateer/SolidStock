@@ -2,20 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './enviroment';
+import { Stock } from '../models/stock.model';
 
-export interface Stock {
-  id: number;
-  name: string;
-  logo: string;
-  finnhubIndustry: string;
-  symbol: string;
-  high: number;
-  low: number;
-  buy: number;
-  sell: number;
-  buyChange: number;
-  sellChange: number;
-}
 @Injectable({
   providedIn: 'root',
 })

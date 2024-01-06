@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LandingComponent } from '../../components/landing/landing.component';
 import { TableComponent } from '../../components/table/table.component';
 import { CardsComponent } from '../../components/cards/cards.component';
-import { StocksService, Stock } from '../../services/stocks.service';
+import { StocksService } from '../../services/stocks.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Stock } from '../../models/stock.model';
 
 @Component({
   selector: 'app-home',

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { TableComponent } from '../../components/table/table.component';
-import { StocksService, Stock } from '../../services/stocks.service';
+import { StocksService } from '../../services/stocks.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { Stock } from '../../models/stock.model';
 
 @Component({
   selector: 'app-market',

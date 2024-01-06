@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphComponent } from '../../components/graph/graph.component';
 import { TableComponent } from '../../components/table/table.component';
-import { Stock, StocksService } from '../../services/stocks.service';
+import { StocksService } from '../../services/stocks.service';
+import { Stock } from '../../models/stock.model';
 
 @Component({
   selector: 'app-trades',

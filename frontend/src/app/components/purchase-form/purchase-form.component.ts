@@ -1,7 +1,8 @@
 import { Component, Input, inject, TemplateRef } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Stock, StocksService } from '../../services/stocks.service';
+import { StocksService } from '../../services/stocks.service';
 import { UserService } from '../../services/user.service';
+import { Stock } from '../../models/stock.model';
 import {
   FormBuilder,
   FormGroup,
