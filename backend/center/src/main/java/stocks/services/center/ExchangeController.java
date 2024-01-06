@@ -13,6 +13,7 @@ import stocks.services.center.repo.services.UserServices;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -40,26 +41,26 @@ public class ExchangeController {
         return new ResponseEntity<>(stocks, HttpStatus.OK);
     }
 
-    @PostMapping("/open/buy")
-    public ResponseEntity<Void> openBuy(@RequestParam long id, @RequestParam String symbol, @RequestParam long assets) {
+    @PostMapping("/open/buy/{id}/{symbol}/{assets}")
+    public ResponseEntity<Void> openBuy(@PathVariable long id, @PathVariable String symbol, @PathVariable long assets) {
         exchangeServices.openBuy(id, symbol, assets);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/open/sell")
-    public ResponseEntity<Void> openSell(@RequestParam long id, @RequestParam String symbol, @RequestParam long assets) {
+    @PostMapping("/open/sell/{id}/{symbol}/{assets}")
+    public ResponseEntity<Void> openSell(@PathVariable long id, @PathVariable String symbol, @PathVariable long assets) {
         exchangeServices.openSell(id, symbol, assets);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/close/buy")
-    public ResponseEntity<Float> closeBuy(@RequestParam long id, @RequestParam String symbol) {
+    @PostMapping("/close/buy/{id}/{symbol}")
+    public ResponseEntity<Float> closeBuy(@PathVariable long id, @PathVariable String symbol) {
         float profit = exchangeServices.closeBuy(id, symbol);
         return ResponseEntity.ok(profit);
     }
 
-    @PostMapping("/close/sell")
-    public ResponseEntity<Float> closeSell(@RequestParam long id, @RequestParam String symbol) {
+    @PostMapping("/close/sell/{id}/{symbol}")
+    public ResponseEntity<Float> closeSell(@PathVariable long id, @PathVariable String symbol) {
         float profit = exchangeServices.closeSell(id,symbol);
         return ResponseEntity.ok(profit);
     }
@@ -70,20 +71,32 @@ public class ExchangeController {
         return new ResponseEntity<>(history, HttpStatus.OK);
     }
 
-    @PostMapping("/user/new")
-    public ResponseEntity<Void> createUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam String username) {
+    @PostMapping("/user/new/{name}/{email}/{password}/{username}")
+    public ResponseEntity<Void> createUser(
+            @PathVariable String name,
+            @PathVariable String email,
+            @PathVariable String password,
+            @PathVariable String username
+    ) {
         userServices.SignUp(name, email, password, username);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/user/edit")
-    public ResponseEntity<Void> editUser(@RequestParam long id, @RequestParam String field, @RequestParam String edit) {
+    @PostMapping("/user/edit/{id}/{field}/{edit}")
+    public ResponseEntity<Void> editUser(
+            @PathVariable long id,
+            @PathVariable String field,
+            @PathVariable String edit
+    ) {
         userServices.editUserData(id, field, edit);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/user/sign-in")
-    public ResponseEntity<Investors> signIn(@RequestParam String username, @RequestParam String password) {
+    @PostMapping("/user/sign-in/{username}")
+    public ResponseEntity<Investors> signIn(
+            @PathVariable String username,
+            @RequestBody String password
+    ) {
         Investors user = userServices.signIn(username, password);
 
         if (user != null) {
@@ -93,8 +106,11 @@ public class ExchangeController {
         }
     }
 
-    @PostMapping("/user/add-balance")
-    public ResponseEntity<Void> addBalance(@RequestParam long id, @RequestParam BigDecimal amount) {
+    @PostMapping("/user/add-balance/{id}")
+    public ResponseEntity<Void> addBalance(
+            @PathVariable long id,
+            @RequestBody BigDecimal amount
+    ) {
         userServices.addBalance(id, amount);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -103,9 +119,12 @@ public class ExchangeController {
     public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
         try {
             userServices.deleteAccount(id);
-            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User deleted successfully", HttpStatus.NO_CONTENT);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            // Handle other exceptions if needed
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

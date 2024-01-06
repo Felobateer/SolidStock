@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from './enviroment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, pipe, tap, catchError, throwError } from 'rxjs';
 
 export interface Investor {
@@ -22,7 +22,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUserById(id: number): Observable<Investor> {
-    const url = `${this.api}/user/info/${id}`;
+    const url = `${this.api}/services/user/info/${id}`;
     return this.http.get<Investor>(url);
   }
 
@@ -32,8 +32,8 @@ export class UserService {
     password: string,
     username: string
   ): Observable<void> {
-    const params = { name, email, password, username };
-    return this.http.post<void>(`${this.api}/user/new`, null, { params }).pipe(
+    const url = `${this.api}/services/user/new/${name}/${email}/${password}/${username}`;
+    return this.http.post<void>(url, null).pipe(
       catchError((err: any) => {
         alert(err);
         return throwError('Error failed to create account ' + err.message);
@@ -42,25 +42,26 @@ export class UserService {
   }
 
   editUser(id: number, field: string, edit: string): Observable<void> {
-    const params = { id: id.toString(), field, edit };
-    return this.http.post<void>(`${this.api}/user/edit`, null, { params });
+    const url = `${this.api}/services/user/edit/${id}/${field}/${edit}`;
+    return this.http.post<void>(url, null);
   }
 
   signIn(username: string, password: string): Observable<any> {
-    const params = { username, password };
+    const url = `${this.api}/services/user/sign-in/${username}`;
+    const params = new HttpParams().set('password', password);
     return this.http
-      .post<any>(`${this.api}/user/sign-in`, null, { params })
+      .post<any>(url, null, { params })
       .pipe(tap((res) => (this.id = res.id)));
   }
 
   addBalance(id: number, amount: number): Observable<void> {
-    const params = { id: id.toString(), amount: amount.toString() };
-    return this.http.post<void>(`${this.api}/user/add-balance`, null, {
-      params,
-    });
+    const url = `${this.api}/services/user/add-balance/${id}`;
+    const params = new HttpParams().set('amount', amount.toString());
+    return this.http.post<void>(url, null, { params });
   }
 
   deleteAccount(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.api}/user/delete-account/${id}`);
+    const url = `${this.api}/services/user/delete-account/${id}`;
+    return this.http.delete<string>(url);
   }
 }
