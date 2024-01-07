@@ -25,11 +25,13 @@ export class RegisterComponent {
   }
 
   handleDemo() {
-    this.user.createUser(
-      'Investor',
-      'investor@solid-stock.com',
-      '1,000,000$',
-      'Investor'
+    this.user.signIn('Investor', '1,000,000$').subscribe(
+      () => {
+        alert('sign in complete');
+      },
+      (error: any) => {
+        alert('error: ' + error.message);
+      }
     );
   }
 }

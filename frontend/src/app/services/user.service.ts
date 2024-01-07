@@ -14,7 +14,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUserById(id: number): Observable<Investor> {
-    const url = `${this.api}/services/user/info/${id}`;
+    const url = `${this.api}user/info/${id}`;
     return this.http.get<Investor>(url);
   }
 
@@ -24,7 +24,7 @@ export class UserService {
     password: string,
     username: string
   ): Observable<void> {
-    const url = `${this.api}/services/user/new/${name}/${email}/${password}/${username}`;
+    const url = `${this.api}user/new/${name}/${email}/${password}/${username}`;
     return this.http.post<void>(url, null).pipe(
       catchError((err: any) => {
         alert(err);
@@ -34,26 +34,31 @@ export class UserService {
   }
 
   editUser(id: number, field: string, edit: string): Observable<void> {
-    const url = `${this.api}/services/user/edit/${id}/${field}/${edit}`;
+    const url = `${this.api}user/edit/${id}/${field}/${edit}`;
     return this.http.post<void>(url, null);
   }
 
   signIn(username: string, password: string): Observable<any> {
-    const url = `${this.api}/services/user/sign-in/${username}`;
-    const params = new HttpParams().set('password', password);
-    return this.http
-      .post<any>(url, null, { params })
-      .pipe(tap((res) => (this.id = res.id)));
+    const url = `${this.api}user/sign-in/${username}`;
+    const requestBody = { password }; // Creating an object to send as JSON in the request body
+
+    return this.http.post<any>(url, requestBody).pipe(
+      tap((res) => {
+        // Save the id to localStorage
+        localStorage.setItem('userId', res.id.toString());
+        this.id = res.id;
+      })
+    );
   }
 
   addBalance(id: number, amount: number): Observable<void> {
-    const url = `${this.api}/services/user/add-balance/${id}`;
+    const url = `${this.api}user/add-balance/${id}`;
     const params = new HttpParams().set('amount', amount.toString());
     return this.http.post<void>(url, null, { params });
   }
 
   deleteAccount(id: number): Observable<string> {
-    const url = `${this.api}/services/user/delete-account/${id}`;
+    const url = `${this.api}user/delete-account/${id}`;
     return this.http.delete<string>(url);
   }
 }

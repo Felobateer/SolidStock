@@ -48,7 +48,9 @@
       </div>
     </form>
     <div class="userBtn">
-      <button type="button" class="btn btn-primary w-25">Use Demo</button>
+      <button type="button" (click)="handleDemo()" class="btn btn-primary w-25">
+        Use Demo
+      </button>
       <app-register-form></app-register-form>
     </div>
 
@@ -57,9 +59,6 @@
       <a routerLink="/premium" class="font-weight-bold text-indigo-600">
         Start a 30 day free trial
       </a>
-    </p>
-    <p class="mt-2 text-center">
-      Demo account: Username: StockTrader & password: 1,000,000$
     </p>
   </div>
 </div>

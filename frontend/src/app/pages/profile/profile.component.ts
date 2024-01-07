@@ -19,17 +19,22 @@ export class ProfileComponent implements OnInit {
     password: 'password',
     balance: 0,
   };
-  id: number = 0;
-  constructor(private user: UserService) {}
+  id: number | null;
+  constructor(private user: UserService) {
+    this.id = null;
+  }
 
   ngOnInit(): void {
+    this.id = this.user.id;
     this.loadUser(this.id);
   }
 
-  loadUser(id: number) {
-    this.user.getUserById(id).subscribe((data) => {
-      this.investor = data;
-    });
+  loadUser(id: number | null) {
+    if (id !== null) {
+      this.user.getUserById(id).subscribe((data) => {
+        this.investor = data;
+      });
+    }
   }
 
   deleteAccount(id: number) {

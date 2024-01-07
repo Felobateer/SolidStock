@@ -13,6 +13,7 @@ import stocks.services.center.repo.services.UserServices;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -95,8 +96,9 @@ public class ExchangeController {
     @PostMapping("/user/sign-in/{username}")
     public ResponseEntity<Investors> signIn(
             @PathVariable String username,
-            @RequestBody String password
+            @RequestBody Map<String, String> requestBody
     ) {
+        String password = requestBody.get("password");
         Investors user = userServices.signIn(username, password);
 
         if (user != null) {
