@@ -11,7 +11,14 @@ export class UserService {
   private api = environment.apiUrl;
   public id: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const id = localStorage.getItem('userId');
+    if (id) {
+      this.id = parseInt(id);
+    } else {
+      this.id = null;
+    }
+  }
 
   getUserById(id: number): Observable<Investor> {
     const url = `${this.api}user/info/${id}`;

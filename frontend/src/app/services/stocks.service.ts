@@ -21,22 +21,27 @@ export class StocksService {
   }
 
   openBuy(id: number, symbol: string, assets: number): Observable<void> {
-    const params = { id: id.toString(), symbol, assets: assets.toString() };
-    return this.http.post<void>(`${this.api}/open/buy`, null, { params });
+    return this.http.post<void>(
+      `${this.api}open/buy/${id}/${symbol}/${assets}`,
+      null
+    );
   }
 
   openSell(id: number, symbol: string, assets: number): Observable<void> {
-    const params = { id: id.toString(), symbol, assets: assets.toString() };
-    return this.http.post<void>(`${this.api}/open/sell`, null, { params });
+    return this.http.post<void>(
+      `${this.api}open/sell/${id}/${symbol}/${assets}`,
+      null
+    );
   }
 
   closeBuy(id: number, symbol: string): Observable<number> {
-    const params = { id: id.toString(), symbol };
-    return this.http.post<number>(`${this.api}/close/buy`, null, { params });
+    return this.http.post<number>(`${this.api}close/buy/${id}/${symbol}`, null);
   }
 
   closeSell(id: number, symbol: string): Observable<number> {
-    const params = { id: id.toString(), symbol };
-    return this.http.post<number>(`${this.api}/close/sell`, null, { params });
+    return this.http.post<number>(
+      `${this.api}close/sell/${id}/${symbol}`,
+      null
+    );
   }
 }

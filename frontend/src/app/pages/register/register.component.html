@@ -9,14 +9,14 @@
     </div>
     <h2 class="text-center mb-4">Sign in to your account</h2>
 
-    <form class="space-y-3" (ngSubmit)="handleLogin()">
+    <form class="space-y-3" [formGroup]="form" (submit)="handleLogin()">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input
           formControlName="username"
           id="username"
           name="username"
-          type="username"
+          type="text"
           autocomplete="username"
           required
           class="form-control"

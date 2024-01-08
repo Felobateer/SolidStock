@@ -29,7 +29,7 @@ export class PurchaseFormComponent {
     private fb: FormBuilder
   ) {
     this.openEntry = this.fb.group({
-      type: ['buy', Validators.required],
+      type: ['', Validators.required],
       assets: [0, Validators.required],
     });
   }
@@ -41,9 +41,23 @@ export class PurchaseFormComponent {
     const assets = this.openEntry.value.assets;
 
     if (type === 'buy') {
-      this.data.openBuy(id!, symbol!, assets);
+      this.data.openBuy(id!, symbol!, assets).subscribe(
+        () => {
+          alert('buy stock complete');
+        },
+        (err: any) => {
+          alert('Error ' + err.message);
+        }
+      );
     } else {
-      this.data.openSell(id!, symbol!, assets);
+      this.data.openSell(id!, symbol!, assets).subscribe(
+        () => {
+          alert('sell stock complete');
+        },
+        (err: any) => {
+          alert('Error ' + err.message);
+        }
+      );
     }
   }
 

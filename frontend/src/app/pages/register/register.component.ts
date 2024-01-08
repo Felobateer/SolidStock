@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { RegisterFormComponent } from '../../components/register-form/register-form.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RegisterFormComponent],
+  imports: [RegisterFormComponent, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.less',
 })
@@ -21,7 +26,16 @@ export class RegisterComponent {
   }
 
   handleLogin() {
-    this.user.signIn(this.form.value.username, this.form.value.password);
+    this.user
+      .signIn(this.form.value.username, this.form.value.password)
+      .subscribe(
+        () => {
+          alert('Sign in Successful');
+        },
+        (error: any) => {
+          alert('Sign in unsuccessful');
+        }
+      );
   }
 
   handleDemo() {

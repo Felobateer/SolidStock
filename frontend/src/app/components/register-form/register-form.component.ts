@@ -67,7 +67,14 @@ export class RegisterFormComponent {
     const email = this.register.value.email;
     const username = this.register.value.username;
     const password = this.register.value.password;
-    this.user.createUser(name, email, password, username);
+    this.user.createUser(name, email, password, username).subscribe(
+      () => {
+        alert('User created successfully');
+      },
+      (err) => {
+        alert(err);
+      }
+    );
   }
 
   CFL(word: string) {
