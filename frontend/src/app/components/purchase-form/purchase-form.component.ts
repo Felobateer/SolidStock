@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-form',
@@ -26,7 +27,8 @@ export class PurchaseFormComponent {
   constructor(
     private data: StocksService,
     private user: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.openEntry = this.fb.group({
       type: ['', Validators.required],
@@ -39,25 +41,29 @@ export class PurchaseFormComponent {
     const symbol = this.stock?.symbol;
     const type = this.openEntry.value.type;
     const assets = this.openEntry.value.assets;
-
-    if (type === 'buy') {
-      this.data.openBuy(id!, symbol!, assets).subscribe(
-        () => {
-          alert('buy stock complete');
-        },
-        (err: any) => {
-          alert('Error ' + err.message);
-        }
-      );
+    if (id != null) {
+      if (type === 'buy') {
+        this.data.openBuy(id!, symbol!, assets).subscribe(
+          () => {
+            alert('buy stock complete');
+          },
+          (err: any) => {
+            alert('Error ' + err.message);
+          }
+        );
+      } else {
+        this.data.openSell(id!, symbol!, assets).subscribe(
+          () => {
+            alert('sell stock complete');
+          },
+          (err: any) => {
+            alert('Error ' + err.message);
+          }
+        );
+      }
     } else {
-      this.data.openSell(id!, symbol!, assets).subscribe(
-        () => {
-          alert('sell stock complete');
-        },
-        (err: any) => {
-          alert('Error ' + err.message);
-        }
-      );
+      alert('Please login first');
+      this.router.navigate(['/register']);
     }
   }
 

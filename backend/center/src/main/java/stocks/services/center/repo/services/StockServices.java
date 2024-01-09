@@ -43,6 +43,11 @@ public class StockServices {
         this.stockRepo = stockRepo;
         this.webClient = builder.baseUrl("https://finnhub.io").build();
 
+//        fetchData();
+    }
+
+    @PostConstruct
+    public void onStart() {
         fetchData();
     }
 
@@ -71,10 +76,6 @@ public class StockServices {
 
     }
 
-    @PostConstruct
-    public void onStartup() {
-        fetchData();
-    }
 
     @Transactional
     private void fetchStockInfo(String sym, String apiKey) {
@@ -92,7 +93,7 @@ public class StockServices {
                     stockInfo.setSymbol(sym);
                     stockInfo.setFinnhubIndustry(infoResponse.getFinnhubIndustry());
                     stockInfo.setLogo(infoResponse.getLogo());
-                stockRepo.save(stockInfo);
+                    stockRepo.save(stockInfo);
                     }, error -> {
                     System.err.println("Error fetching stock info: " + error.getMessage());
                 }
