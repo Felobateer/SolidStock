@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import stocks.services.center.domain.Investors;
 import stocks.services.center.domain.Stock;
 import stocks.services.center.domain.StockExchange;
+import stocks.services.center.repo.ExchangeRepo;
 import stocks.services.center.repo.InvestorRepo;
 import stocks.services.center.repo.StockRepo;
 
@@ -17,11 +18,13 @@ import java.util.Optional;
 public class ExchangeServices {
     private final StockRepo stockRepo;
     private final InvestorRepo investorRepo;
+    private final ExchangeRepo exchangeRepo;
 
     @Autowired
-    public ExchangeServices(StockRepo stockRepo, InvestorRepo investorRepo) {
+    public ExchangeServices(StockRepo stockRepo, InvestorRepo investorRepo, ExchangeRepo exchangeRepo) {
         this.stockRepo = stockRepo;
         this.investorRepo = investorRepo;
+        this.exchangeRepo = exchangeRepo;
     }
 
     public List<Stock> getAllStocks() {
@@ -53,6 +56,8 @@ public class ExchangeServices {
         stockExchange.setSell(0);
         stockExchange.setAssets(assets);
         stockExchange.setTimestamp(openTime);
+        stockExchange.setSymbol(symbol);
+        stockExchange.setUserId(id);
 
         user.getStockExchanges().add(stockExchange);
         investorRepo.save(user);
@@ -109,6 +114,8 @@ public class ExchangeServices {
         stockExchange.setSell(stock.getSell());
         stockExchange.setAssets(assets);
         stockExchange.setTimestamp(openTime);
+        stockExchange.setSymbol(symbol);
+        stockExchange.setUserId(id);
 
         user.setStockExchanges(stockExchange);
         investorRepo.save(user);
@@ -139,8 +146,8 @@ public class ExchangeServices {
     }
 
     public List<StockExchange> showOpenHistory(long id) {
-        Investors user = investorRepo.findById(id).orElse(null);
-        return user.getStockExchanges();
+        List<StockExchange> history = (List<StockExchange>) exchangeRepo.findByUserId(id);
+        return history;
     }
 
 }

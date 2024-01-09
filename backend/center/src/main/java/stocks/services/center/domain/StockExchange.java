@@ -17,6 +17,7 @@ public class StockExchange {
     private String symbol;
     private double assets;
     private Date timestamp;
+    private long userId;
 
     // Constructors, getters, and setters
 
@@ -31,6 +32,7 @@ public class StockExchange {
         this.symbol = symbol;
         this.assets = assets;
         this.timestamp = timestamp;
+        this.userId = userId;
     }
 
     public float getSell() {
@@ -71,4 +73,8 @@ public class StockExchange {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
+
+    public long getUserId() {return userId;}
+
+    public void setUserId(long userId) {this.userId = userId;}
 }
