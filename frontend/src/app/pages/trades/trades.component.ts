@@ -3,6 +3,7 @@ import { GraphComponent } from '../../components/graph/graph.component';
 import { TableComponent } from '../../components/table/table.component';
 import { StocksService } from '../../services/stocks.service';
 import { Stock } from '../../models/stock.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-trades',
@@ -12,16 +13,22 @@ import { Stock } from '../../models/stock.model';
   styleUrl: './trades.component.less',
 })
 export class TradesComponent implements OnInit {
-  id: number = 0;
+  id: number | null;
   stocks: Stock[] = [];
 
-  constructor(private data: StocksService) {}
+  constructor(private data: StocksService, private user: UserService) {
+    this.id = this.user.id;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadHistory();
+  }
 
-  loadHistory(id: number) {
-    this.data.getHistory(id).subscribe((data) => {
-      this.stocks = data;
-    });
+  loadHistory() {
+    if (this.id) {
+      this.data.getHistory(this.id).subscribe((data) => {
+        this.stocks = data;
+      });
+    }
   }
 }

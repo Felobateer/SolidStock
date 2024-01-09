@@ -17,7 +17,7 @@ export class StocksService {
   }
 
   getHistory(id: number): Observable<Stock[]> {
-    return this.http.get<Stock[]>(this.api + 'history/' + id);
+    return this.http.get<Stock[]>(`${this.api}history/${id}`);
   }
 
   openBuy(id: number, symbol: string, assets: number): Observable<void> {
