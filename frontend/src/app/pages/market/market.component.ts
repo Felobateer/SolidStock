@@ -27,7 +27,6 @@ export class MarketComponent {
       (data: Stock[]) => {
         this.allStocks = data;
         this.stocks = this.allStocks.slice();
-        console.log(data);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

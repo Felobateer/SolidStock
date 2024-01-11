@@ -16,6 +16,10 @@ export class StocksService {
     return this.http.get<Stock[]>(this.api + type);
   }
 
+  getStock(sym: string): Observable<Stock> {
+    return this.http.get<Stock>(this.api + sym);
+  }
+
   getHistory(id: number): Observable<Stock[]> {
     const params = new HttpParams().set('id', id.toString());
     const url = `${this.api}history`;

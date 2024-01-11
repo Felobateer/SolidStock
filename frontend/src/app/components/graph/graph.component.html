@@ -27,15 +27,22 @@
     <tbody>
       @for(stock of stocks; track stock.id){
 
-      <tr>
+      <tr (click)="select(stock.symbol)">
         <td>{{ stock.symbol }}</td>
         <td>
           @if(stock.buy > 0) { Bought at {{ stock.buy }} } @else { Sold at
           {{ stock.sell }}
           }
         </td>
-        <td></td>
-        <td>{{ stock.timestamp }}</td>
+        <td>
+          <button
+            class="btn btn-primary"
+            (click)="close(stock.symbol, stock.buy)"
+          >
+            Close
+          </button>
+        </td>
+        <td>{{ timeAgo(stock.timestamp) }}</td>
       </tr>
       }
     </tbody>
