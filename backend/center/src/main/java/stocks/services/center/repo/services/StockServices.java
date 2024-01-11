@@ -80,6 +80,8 @@ public class StockServices {
     @Transactional
     private void fetchStockInfo(String sym, String apiKey) {
         String apiInfoUrl = String.format(apiInfoTemplate, sym, apiKey);
+        Stock existingStock = stockRepo.findBySymbol(sym);
+        boolean present = existingStock != null;
 
         Mono<Stock> response = webClient.get()
                 .uri(apiInfoUrl)
@@ -88,12 +90,14 @@ public class StockServices {
 
         response.subscribe(
                 infoResponse -> {
-                    Stock stockInfo = new Stock();
-                    stockInfo.setName(infoResponse.getName());
-                    stockInfo.setSymbol(sym);
-                    stockInfo.setFinnhubIndustry(infoResponse.getFinnhubIndustry());
-                    stockInfo.setLogo(infoResponse.getLogo());
-                    stockRepo.save(stockInfo);
+                    if(!present) {
+                        Stock stockInfo = new Stock();
+                        stockInfo.setName(infoResponse.getName());
+                        stockInfo.setSymbol(sym);
+                        stockInfo.setFinnhubIndustry(infoResponse.getFinnhubIndustry());
+                        stockInfo.setLogo(infoResponse.getLogo());
+                        stockRepo.save(stockInfo);
+                    }
                     }, error -> {
                     System.err.println("Error fetching stock info: " + error.getMessage());
                 }

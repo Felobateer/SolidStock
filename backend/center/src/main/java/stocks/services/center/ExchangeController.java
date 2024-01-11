@@ -42,6 +42,12 @@ public class ExchangeController {
         return new ResponseEntity<>(stocks, HttpStatus.OK);
     }
 
+    @GetMapping("/stocks/{sym}")
+    public ResponseEntity<Stock> getStock(@PathVariable String sym) {
+        Stock stock = exchangeServices.getStock(sym);
+        return new ResponseEntity<>(stock, HttpStatus.OK);
+    }
+
     @PostMapping("/open/buy/{id}/{symbol}/{assets}")
     public ResponseEntity<Void> openBuy(@PathVariable long id, @PathVariable String symbol, @PathVariable long assets) {
         exchangeServices.openBuy(id, symbol, assets);

@@ -9,10 +9,7 @@ import stocks.services.center.repo.ExchangeRepo;
 import stocks.services.center.repo.InvestorRepo;
 import stocks.services.center.repo.StockRepo;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ExchangeServices {
@@ -38,6 +35,10 @@ public class ExchangeServices {
             stockOptional.ifPresent(tenStocks::add);
         }
         return tenStocks;
+    }
+
+    public Stock getStock(String sym) {
+        return stockRepo.findBySymbol(sym);
     }
 
     public void openBuy(long id, String symbol, long assets) {
@@ -146,7 +147,11 @@ public class ExchangeServices {
     }
 
     public List<StockExchange> showOpenHistory(long id) {
-        List<StockExchange> history = (List<StockExchange>) exchangeRepo.findByUserId(id);
+        StockExchange singleResult = exchangeRepo.findByUserId(id);
+
+        // Wrap the single result in a list
+        List<StockExchange> history = Collections.singletonList(singleResult);
+
         return history;
     }
 

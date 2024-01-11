@@ -26,9 +26,14 @@ export class TradesComponent implements OnInit {
 
   loadHistory() {
     if (this.id) {
-      this.data.getHistory(this.id).subscribe((data) => {
-        this.stocks = data;
-      });
+      this.data.getHistory(this.id).subscribe(
+        (res: Stock[]) => {
+          this.stocks = res;
+        },
+        (error: any) => {
+          alert(error.message);
+        }
+      );
     }
   }
 }

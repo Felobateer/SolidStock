@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './enviroment';
 import { Stock } from '../models/stock.model';
@@ -17,7 +17,9 @@ export class StocksService {
   }
 
   getHistory(id: number): Observable<Stock[]> {
-    return this.http.get<Stock[]>(`${this.api}history/${id}`);
+    const params = new HttpParams().set('id', id.toString());
+    const url = `${this.api}history`;
+    return this.http.get<Stock[]>(url, { params });
   }
 
   openBuy(id: number, symbol: string, assets: number): Observable<void> {

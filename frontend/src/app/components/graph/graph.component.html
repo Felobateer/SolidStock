@@ -13,3 +13,31 @@
   <div class="blankChart"></div>
   }
 </section>
+
+<section class="openList">
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th></th>
+        <th>Close</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(stock of stocks; track stock.id){
+
+      <tr>
+        <td>{{ stock.symbol }}</td>
+        <td>
+          @if(stock.buy > 0) { Bought at {{ stock.buy }} } @else { Sold at
+          {{ stock.sell }}
+          }
+        </td>
+        <td></td>
+        <td>{{ stock.timestamp }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</section>

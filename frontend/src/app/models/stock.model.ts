@@ -10,4 +10,5 @@ export interface Stock {
   sell: number;
   buyChange: number;
   sellChange: number;
+  timestamp: Date;
 }

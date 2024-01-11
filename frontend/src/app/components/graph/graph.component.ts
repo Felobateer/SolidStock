@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartDataset, ChartOptions } from 'chart.js';
 import { StocksService } from '../../services/stocks.service';
 import { NgChartsModule } from 'ng2-charts';
+import { Stock } from '../../models/stock.model';
 
 @Component({
   selector: 'app-graph',
@@ -11,6 +12,7 @@ import { NgChartsModule } from 'ng2-charts';
   styleUrl: './graph.component.less',
 })
 export class GraphComponent {
+  @Input() stocks: Stock[] | null = null;
   lineChartData: ChartDataset[] = [{ data: [], label: 'Stock Price' }];
 
   lineChartLabels: string[] = [];
