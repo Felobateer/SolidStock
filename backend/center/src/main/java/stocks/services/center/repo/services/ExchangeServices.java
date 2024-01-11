@@ -65,14 +65,15 @@ public class ExchangeServices {
     }
 
     public float closeBuy(long id, String symbol) {
-        Investors user = investorRepo.findById(id).orElse(null);
-        Stock stock = stockRepo.findBySymbol(symbol);
-        List<StockExchange> stockExchanges = user.getStockExchanges();
+        Investors user = investorRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Investor not found"));
 
-        // Find the purchase with the specified symbol
-        Optional<StockExchange> purchaseOptional = stockExchanges.stream()
-                .filter(p -> p.getSymbol().equals(symbol))
-                .findFirst();
+        Stock stock = stockRepo.findBySymbol(symbol);
+        if (stock == null) {
+            throw new IllegalArgumentException("Stock not found for symbol: " + symbol);
+        }
+
+        Optional<StockExchange> purchaseOptional = Optional.ofNullable(exchangeRepo.findByUserIdAndSymbol(id, symbol));
 
         if (purchaseOptional.isPresent()) {
             StockExchange purchase = purchaseOptional.get();
@@ -87,8 +88,8 @@ public class ExchangeServices {
             // Update user balance
             user.setBalance(user.getBalance() + (float) profit);
 
-            // Remove the purchase from the list
-            stockExchanges.remove(purchase);
+            // Remove the purchase from the list (if applicable)
+            exchangeRepo.delete(purchase);
 
             // Save the changes
             investorRepo.save(user);
@@ -123,23 +124,35 @@ public class ExchangeServices {
     }
 
     public float closeSell(long id, String symbol) {
-        Investors user = investorRepo.findById(id).orElse(null);
-        Stock stock = stockRepo.findBySymbol(symbol);
-        List<StockExchange> stockExchanges = user.getStockExchanges();
+        Investors user = investorRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Investor not found"));
 
-        Optional<StockExchange> purchaseOptional = stockExchanges.stream().filter(p -> p.getSymbol().equals(symbol)).findFirst();
+        Stock stock = stockRepo.findBySymbol(symbol);
+        if (stock == null) {
+            throw new IllegalArgumentException("Stock not found for symbol: " + symbol);
+        }
+
+        Optional<StockExchange> purchaseOptional = Optional.ofNullable(exchangeRepo.findByUserIdAndSymbol(id, symbol));
+
         if (purchaseOptional.isPresent()) {
             StockExchange purchase = purchaseOptional.get();
 
+            // Calculate total and cost
             double total = stock.getSell() * purchase.getAssets();
             double cost = purchase.getSell() * purchase.getAssets();
 
+            // Calculate profit
             double profit = total - cost;
 
+            // Update user balance
             user.setBalance(user.getBalance() + (float) profit);
 
-            stockExchanges.remove(purchase);
+            // Remove the purchase from the list (if applicable)
+            exchangeRepo.delete(purchase);
+
+            // Save the changes
             investorRepo.save(user);
+
             return (float) profit;
         } else {
             throw new IllegalArgumentException("Sell position not found for symbol: " + symbol);

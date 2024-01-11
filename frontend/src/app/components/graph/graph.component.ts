@@ -42,13 +42,23 @@ export class GraphComponent {
     const id = this.user.id;
     if (id != null) {
       if (buy > 0) {
-        this.data.closeBuy(id, symbol).subscribe((error: any) => {
-          alert(`Error closing buy: ${error.message}`);
-        });
+        this.data.closeBuy(id, symbol).subscribe(
+          () => {
+            alert('closing successful');
+          },
+          (error: any) => {
+            alert(`Error closing buy: ${error.message}`);
+          }
+        );
       } else {
-        this.data.closeSell(id, symbol).subscribe((error: any) => {
-          alert(`Error closing buy: ${error.message}`);
-        });
+        this.data.closeSell(id, symbol).subscribe(
+          () => {
+            alert('closing successful');
+          },
+          (error: any) => {
+            alert(`Error closing buy: ${error.message}`);
+          }
+        );
       }
     }
   }

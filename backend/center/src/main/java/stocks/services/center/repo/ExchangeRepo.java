@@ -5,4 +5,5 @@ import stocks.services.center.domain.StockExchange;
 
 public interface ExchangeRepo extends JpaRepository<StockExchange, Long> {
     StockExchange findByUserId(long userId);
+    StockExchange findByUserIdAndSymbol(long userId, String symbol);
 }
