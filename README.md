@@ -1,20 +1,22 @@
 # SolidStock
 
-SolidStock is a stock market exchange website that allows users to view real-time stock prices, create user accounts, and perform buy and sell operations. The platform provides a graphical representation of stock changes over time.
+SolidStock ist eine Börse-Website, die es Benutzern ermöglicht, Echtzeit-Aktienkurse anzusehen, Benutzerkonten zu erstellen und Kauf- und Verkaufsvorgänge durchzuführen. Die Plattform bietet eine grafische Darstellung von Aktienveränderungen im Laufe der Zeit.
 
-## Features
+## Funktionen
 
-- Real-time stock price tracking
-- User account creation
-- Buy and sell stocks
-- Graphical representation of stock changes
-- Technologies Used
+- Echtzeit-Verfolgung von Aktienkursen
+- Erstellung von Benutzerkonten
+- Kaufen und Verkaufen von Aktien
+- Grafische Darstellung von Aktienveränderungen
+
+## Verwendete Technologien
+
 - Frontend: Angular 17
 - Backend: Spring Boot 3
-- Database: MySQL
-- Animations: GreenSock
+- Datenbank: MySQL
+- Animationen: GreenSock
 
-## Dependencies
+## Abhängigkeiten
 
 - Angular 17
 - Spring Boot 3
@@ -25,14 +27,14 @@ SolidStock is a stock market exchange website that allows users to view real-tim
 
 ## Installation
 
-- Clone the repository.
-- Install dependencies for the frontend and backend.
-- Configure the database using the provided configuration file.
-- Run the application.
+- Repository klonen.
+- Abhängigkeiten für Frontend und Backend installieren.
+- Die Datenbank mit der bereitgestellten Konfigurationsdatei konfigurieren.
+- Die Anwendung ausführen.
 
-## Usage
+## Verwendung
 
-- Create a user account or use the demo account.
-- Explore real-time stock prices.
-- Open and close buy/sell stocks.
-- Monitor stock changes on the graph.
+- Ein Benutzerkonto erstellen oder das Demo-Konto verwenden.
+- Echtzeit-Aktienkurse erkunden.
+- Kaufen und Verkaufen von Aktien öffnen und schließen.
+- Aktienveränderungen auf dem Diagramm überwachen.
