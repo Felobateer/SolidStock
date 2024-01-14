@@ -1,7 +1,9 @@
-SolidStock
+# SolidStock
+
 SolidStock is a stock market exchange website that allows users to view real-time stock prices, create user accounts, and perform buy and sell operations. The platform provides a graphical representation of stock changes over time.
 
-Features
+# Features
+
 Real-time stock price tracking
 User account creation
 Buy and sell stocks
@@ -22,7 +24,8 @@ Angular Materials
 Configuration
 The project includes a configuration file for the databases in the backend.
 
-Installation
+# Installation
+
 Clone the repository.
 Install dependencies for the frontend and backend.
 Configure the database using the provided configuration file.
