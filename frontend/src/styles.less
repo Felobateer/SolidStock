@@ -7,16 +7,18 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: @dark;
-  overflow-x: hidden;
+html {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-html,
+
 body {
-  height: 100%;
-}
-body {
-  margin: 0;
+  position: relative;
+  background-color: @dark;
+  overflow-x: hidden;
+  max-width: 1440px;
+  margin: auto;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
