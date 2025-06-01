@@ -1,5 +1,7 @@
 FROM openjdk:21
+WORKDIR /src
 
-COPY target/center-0.0.1-SNAPSHOT.jar center-0.0.1-SNAPSHOT.jar
+COPY target/center-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/center-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
