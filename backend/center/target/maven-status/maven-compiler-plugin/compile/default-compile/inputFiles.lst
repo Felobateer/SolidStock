@@ -1,0 +1,13 @@
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/domain/StockExchange.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/CenterApplication.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/repo/CorsConfiguration.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/domain/Investors.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/repo/InvestorRepo.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/domain/Stock.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/ExchangeController.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/domain/StockPriceResponse.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/repo/services/ExchangeServices.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/repo/services/UserServices.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/repo/StockRepo.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/repo/services/StockServices.java
+/home/felobateer/Desktop/Software/portfolio/SolidStock/backend/center/src/main/java/stocks/services/center/repo/ExchangeRepo.java
