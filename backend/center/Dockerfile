@@ -2,7 +2,8 @@
 FROM maven:3.9-eclipse-temurin-21 as builder
 WORKDIR /app
 COPY . .
-RUN mvn -f center/pom.xml clean package -DskipTests
+RUN mvn clean package -DskipTests
+
 
 # Stage 2: Run the app
 FROM openjdk:21
