@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
 export class TableComponent {
   theads: string[] = [
     '',
-    'Industry',
+    // 'Industry',
     'Symbol',
     'Name',
     'Buy',
