@@ -8,7 +8,7 @@ RUN mvn clean package -DskipTests
 # Stage 2: Run the app
 FROM openjdk:21
 WORKDIR /src
-COPY --from=builder /app/center/target/center-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /center/target/center-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
